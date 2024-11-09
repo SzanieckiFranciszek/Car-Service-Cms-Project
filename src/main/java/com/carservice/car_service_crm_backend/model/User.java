@@ -38,7 +38,6 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    // To do in the future access control based role
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
@@ -46,7 +45,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return email;
     }
 
     @Override
