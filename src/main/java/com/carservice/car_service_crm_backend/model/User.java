@@ -21,14 +21,37 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String userName;
+    @Column(nullable = false, length = 20)
+    private String firstName;
+
+    @Column(length = 20)
+    private String lastName;
 
     @Column(unique = true, length = 100, nullable = false)
     private String email;
 
     @Column(nullable = false)
     private String password;
+
+    @Column(length = 12)
+    private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role", columnDefinition = "ENUM('CUSTOMER', 'EMPLOYEE', 'ADMIN')")
+    private UserRole userRole;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_status", columnDefinition = "ENUM('VERIFIED', 'UNVERIFIED', 'BLOCKED', 'BANNED')")
+    private UserStatus userStatus;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Car> cars;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Appointment> appointments;
+
+    @OneToMany(mappedBy = "assignedEmployee", cascade = CascadeType.ALL)
+    private List<Appointment> assignedAppointments;
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
