@@ -1,5 +1,8 @@
 package com.carservice.car_service_crm_backend.exception;
 
+import lombok.Getter;
+
+@Getter
 public enum ErrorCode {
 
     TEA001("TEA001", "INTERNAL_SERVER_ERROR", 500),
