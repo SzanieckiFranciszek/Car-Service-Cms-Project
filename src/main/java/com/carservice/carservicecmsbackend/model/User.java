@@ -37,7 +37,7 @@ public class User implements UserDetails {
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_role", columnDefinition = "ENUM('CUSTOMER', 'EMPLOYEE', 'ADMIN')")
+    @Column(name = "user_role", columnDefinition = "ENUM('CUSTOMER', 'ADMIN')")
     private UserRole userRole;
 
     @Enumerated(EnumType.STRING)
