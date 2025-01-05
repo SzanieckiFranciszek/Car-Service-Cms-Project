@@ -20,21 +20,32 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Post> findPostById(@Min(1) @NotNull @PathVariable Long id) {
-        Post post = postService.findPostById(id);
-        return new ResponseEntity<>(post,HttpStatus.OK);
-    }
-
     @GetMapping()
     public ResponseEntity<List<Post>> getAllPosts() {
         List<Post> posts = postService.getAllPosts();
         return new ResponseEntity<>(posts,HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> findPostById(@Min(1) @NotNull @PathVariable Long id) {
+        Post post = postService.findPostById(id);
+        return new ResponseEntity<>(post,HttpStatus.OK);
+    }
+
     @PostMapping("/new")
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
         postService.createPost(postDto);
         return new ResponseEntity<>(postDto,HttpStatus.CREATED);
+    }
+
+    @PostMapping("/update/{id}")
+    public ResponseEntity<Post> updatePostById(@RequestBody PostDto postDto, Long postId){
+        try {
+            Post updatedPost = postService.updatePost(postId, postDto);
+
+            return ResponseEntity.ok(updatedPost);
+        }catch (RuntimeException exception){
+            return ResponseEntity.notFound().build();
+        }
     }
 }

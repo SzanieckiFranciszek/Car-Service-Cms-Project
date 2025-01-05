@@ -33,7 +33,18 @@ public class PostService {
     }
 
     public Post findPostById(Long id) {
-       return Optional.of(postRepository.getById(id)).orElseThrow(() -> new AppRuntimeException(ErrorCode.P001,
+        return Optional.of(postRepository.getById(id)).orElseThrow(() -> new AppRuntimeException(ErrorCode.P001,
                 "Post with this id does not exist"));
+    }
+
+    public Post updatePost(Long id, PostDto postDto) {
+
+        return postRepository.findById(id).map(post -> {
+            post.setAuthor(postDto.author());
+            post.setTitle(postDto.title());
+            post.setContent(postDto.content());
+            post.setPhoto(postDto.photo());
+            return postRepository.save(post);
+        }).orElseThrow(() -> new RuntimeException("Post not found"));
     }
 }
