@@ -5,6 +5,7 @@ import com.carservice.carservicecmsbackend.repository.ContactInformationReposito
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -19,22 +20,17 @@ public class ContactInformationService {
         return contactInformationRepository.findAll();
     }
 
-    public List<ContactInformation> getAllContactInformationByType(String type) {
-        return contactInformationRepository.findByType(type);
-    }
-
-
     public Optional<ContactInformation> getContactInfoById(Long id) {
         return contactInformationRepository.findById(id);
     }
 
-    public ContactInformation createContactInfo(String value) {
+    public ContactInformation createContactInfo(Map<String, Object> value) {
         ContactInformation contactInformation = new ContactInformation();
         contactInformation.setValue(value);
         return contactInformationRepository.save(contactInformation);
     }
 
-    public ContactInformation updateContactInfo(Long id, String value) {
+    public ContactInformation updateContactInfo(Long id, Map<String, Object> value) {
         return contactInformationRepository.findById(id).map(contactInfo -> {
             contactInfo.setValue(value);
             return contactInformationRepository.save(contactInfo);

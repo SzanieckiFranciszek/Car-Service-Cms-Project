@@ -23,11 +23,6 @@ public class ContactInformationController {
         return contactInformationService.getAllContactInformation();
     }
 
-    @GetMapping("/type/{value}")
-    public List<ContactInformation> getAllContactInformationByType(@PathVariable String value) {
-        return contactInformationService.getAllContactInformationByType(value);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<ContactInformation> getContactInformationById(@PathVariable Long id) {
         return contactInformationService.getContactInfoById(id)
