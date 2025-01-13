@@ -1,5 +1,6 @@
 package com.carservice.carservicecmsbackend.model;
 
+import com.carservice.carservicecmsbackend.dto.PhotoDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "photo_id")
     private Photo photo;
 

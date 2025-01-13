@@ -23,13 +23,13 @@ public class PostController {
     @GetMapping()
     public ResponseEntity<List<Post>> getAllPosts() {
         List<Post> posts = postService.getAllPosts();
-        return new ResponseEntity<>(posts,HttpStatus.OK);
+        return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Post> findPostById(@Min(1) @NotNull @PathVariable Long id) {
         Post post = postService.findPostById(id);
-        return new ResponseEntity<>(post,HttpStatus.OK);
+        return ResponseEntity.ok(post);
     }
 
     @PostMapping("/new")

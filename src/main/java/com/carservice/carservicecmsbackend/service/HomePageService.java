@@ -28,4 +28,16 @@ private final HomePageRepository homePageRepository;
                 .value(homepage.getValue())
                 .build();
     }
+
+    public boolean saveOrUpdateHomepage(HomePageDto homePageDto) {
+        if (homePageDto != null) {
+
+            HomePage entity = homePageRepository.findAll().stream().findFirst().orElse(new HomePage());
+            entity.setId(homePageDto.id());
+            entity.setValue(homePageDto.value());
+            homePageRepository.save(entity);
+            return true;
+        }
+        return false;
+    }
 }
