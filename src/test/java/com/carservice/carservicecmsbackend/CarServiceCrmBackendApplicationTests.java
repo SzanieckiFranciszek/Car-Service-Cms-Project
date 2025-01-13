@@ -1,4 +1,4 @@
-package com.carservice.car_service_crm_backend;
+package com.carservice.carservicecmsbackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
