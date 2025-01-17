@@ -1,5 +1,6 @@
 package com.carservice.carservicecmsbackend.service;
 
+import com.carservice.carservicecmsbackend.dto.PageDetailsDto;
 import com.carservice.carservicecmsbackend.dto.PageDto;
 import com.carservice.carservicecmsbackend.model.Page;
 import com.carservice.carservicecmsbackend.repository.PageRepository;
@@ -19,6 +20,13 @@ public class PageService {
         return pageRepository.findAllByIsVisibleTrueOrderByOrderIndexAsc()
                 .stream()
                 .map(this::convertToDto)
+                .toList();
+    }
+
+    public List<PageDetailsDto> getAllVisiblePagesDetails() {
+        return pageRepository.findAllByIsVisibleTrueOrderByOrderIndexAsc()
+                .stream()
+                .map(this::convertToDtoWithOnlyDetails)
                 .toList();
     }
 
@@ -48,6 +56,15 @@ public class PageService {
                 .build();
     }
 
+    private PageDetailsDto convertToDtoWithOnlyDetails(Page page) {
+        return PageDetailsDto.builder()
+                .id(page.getId())
+                .orderIndex(page.getOrderIndex())
+                .title(page.getTitle())
+                .isVisible(page.getIsVisible())
+                .build();
+    }
+
     private Page convertToEntity(PageDto dto) {
         Page page = new Page();
         page.setId(dto.id());
@@ -60,5 +77,19 @@ public class PageService {
         page.setContent(dto.content());
         page.setIsRemovable(dto.isRemovable());
         return page;
+    }
+
+    public List<PageDto> getAllPages() {
+        return pageRepository.findAll()
+                .stream()
+                .map(this::convertToDto)
+                .toList();
+    }
+
+    public List<PageDetailsDto> getAllPagesDetails() {
+        return pageRepository.findAll()
+                .stream()
+                .map(this::convertToDtoWithOnlyDetails)
+                .toList();
     }
 }

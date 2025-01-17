@@ -1,5 +1,6 @@
 package com.carservice.carservicecmsbackend.controller;
 
+import com.carservice.carservicecmsbackend.dto.PageDetailsDto;
 import com.carservice.carservicecmsbackend.dto.PageDto;
 import com.carservice.carservicecmsbackend.service.PageService;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,23 @@ public class PageController {
     }
 
     @GetMapping
+    public List<PageDto> getAllPages() {
+        return pageService.getAllPages();
+    }
+
+    @GetMapping("/details")
+    public List<PageDetailsDto> getAllPagesDetails() {
+        return pageService.getAllPagesDetails();
+    }
+
+    @GetMapping("/visible")
     public List<PageDto> getAllVisiblePages() {
         return pageService.getAllVisiblePages();
+    }
+
+    @GetMapping("/visible/details")
+    public List<PageDetailsDto> getAllVisiblePagesDetails() {
+        return pageService.getAllVisiblePagesDetails();
     }
 
     @GetMapping("/{id}")
