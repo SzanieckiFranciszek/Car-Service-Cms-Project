@@ -1,31 +1,22 @@
 package com.carservice.carservicecmsbackend.model;
 
-import com.carservice.carservicecmsbackend.dto.PhotoDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Table(name = "posts")
+@Table(name = "posts_photos")
 @Entity
-@Getter
 @Setter
-public class Post {
+@Getter
+public class PostPhoto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-
-    @Column(columnDefinition = "TEXT")
-    private String content;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "photo_id")
-    private PostPhoto photo;
-
-    private String author;
+    private String path;
 
     private LocalDateTime createdAt;
 
