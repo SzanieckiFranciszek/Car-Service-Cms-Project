@@ -1,8 +1,7 @@
 package com.carservice.carservicecmsbackend.dto;
 
 import lombok.Builder;
-import java.util.Map;
 
 @Builder
-public record ContactInformationDto(Long id, Map<String, Object> value){
+public record ContactInformationDto(Long id, String type, String description, String value){
 }

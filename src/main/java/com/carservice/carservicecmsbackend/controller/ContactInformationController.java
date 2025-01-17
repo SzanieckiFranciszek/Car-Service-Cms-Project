@@ -30,9 +30,24 @@ public class ContactInformationController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/phone")
+    public List<ContactInformation> getAllContactInformationByTypePhone() {
+        return contactInformationService.getAllContactInformationByType("phone");
+    }
+    @GetMapping("/email")
+    public List<ContactInformation> getAllContactInformationByTypeEmail() {
+        return contactInformationService.getAllContactInformationByType("email");
+    }
+
+    @GetMapping("/description/{description}")
+    public List<ContactInformation> getAllContactInformationByDescription(@PathVariable String description) {
+        return contactInformationService.getAllContactInformationByDescription(description.toLowerCase());
+    }
+
+
     @PostMapping("/create")
-    public ResponseEntity<ContactInformation> createContactInformation(@RequestBody ContactInformationDto contactInformationDto) {
-        ContactInformation created = contactInformationService.createContactInfo(contactInformationDto.value());
+    public ResponseEntity<ContactInformation> createContactInformation(@RequestBody ContactInformation contactInformation) {
+        ContactInformation created = contactInformationService.createContactInfo(contactInformation);
         return ResponseEntity.ok(created);
     }
 
@@ -42,7 +57,7 @@ public class ContactInformationController {
             @RequestBody ContactInformationDto contactInformationDto
     ) {
         try {
-            ContactInformation updated = contactInformationService.updateContactInfo(id, contactInformationDto.value());
+            ContactInformation updated = contactInformationService.updateContactInfo(id, contactInformationDto);
             return ResponseEntity.ok(updated);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
