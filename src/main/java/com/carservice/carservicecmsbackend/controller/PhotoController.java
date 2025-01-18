@@ -1,5 +1,6 @@
 package com.carservice.carservicecmsbackend.controller;
 
+import com.carservice.carservicecmsbackend.dto.PhotoDto;
 import com.carservice.carservicecmsbackend.model.Photo;
 import com.carservice.carservicecmsbackend.service.PhotoService;
 import org.springframework.core.io.Resource;
@@ -26,13 +27,13 @@ public class PhotoController {
     }
 
     @GetMapping
-    public List<Photo> getAllPhotos() {
+    public List<PhotoDto> getAllPhotos() {
         return photoService.getAllPhotosSorted();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Photo> getPhotoById(@PathVariable Long id) {
-        Photo photo = photoService.getPhotoById(id);
+    public ResponseEntity<PhotoDto> getPhotoById(@PathVariable Long id) {
+        PhotoDto photo = photoService.getPhotoById(id);
         if (photo != null) {
             return ResponseEntity.ok(photo);
         } else {
@@ -52,10 +53,7 @@ public class PhotoController {
             Path filePath = uploadPath.resolve(fileName);
             Files.write(filePath, file.getBytes());
 
-
-            Photo photo = new Photo();
-            photo.setOrderIndex(orderIndex);
-            photo.setPath(filePath.toString());
+            PhotoDto photo = PhotoDto.builder().orderIndex(orderIndex).path(filePath.toString()).build();
             photoService.savePhoto(photo);
 
             return ResponseEntity.ok("Photo uploaded and saved: " + fileName);
@@ -68,13 +66,13 @@ public class PhotoController {
     @GetMapping("/download/{id}")
     public ResponseEntity<Resource> downloadPhotoById(@PathVariable Long id) {
         try {
-            Photo photo = photoService.getPhotoById(id);
+            PhotoDto photo = photoService.getPhotoById(id);
             if (photo == null) {
                 return ResponseEntity.notFound().build();
             }
 
 
-            Path filePath = Paths.get(photo.getPath()).normalize();
+            Path filePath = Paths.get(photo.path()).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
             if (resource.exists()) {
@@ -97,6 +95,45 @@ public class PhotoController {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/homepage")
+    public ResponseEntity<byte[]> downloadHomepagePhoto() {
+        try {
+            Photo photo = photoService.getHomePagePhoto();
+            if (photo == null) {
+                return ResponseEntity.notFound().build();
+            }
+            Path filePath = Paths.get(photo.getPath()).normalize();
+            byte[] photoData = photoService.downloadHomepagePhoto();
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filePath.getFileName().toString() + "\"")
+                    .body(photoData);
+        } catch (RuntimeException | IOException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/homepage")
+    public ResponseEntity<Photo> uploadHomepagePhoto(@RequestParam("file") MultipartFile file) {
+        try {
+            String fileName = file.getOriginalFilename();
+            byte[] fileData = file.getBytes();
+            Photo savedPhoto = photoService.uploadHomepagePhoto(fileName, fileData);
+            return ResponseEntity.ok(savedPhoto);
+        } catch (IOException | IllegalStateException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @DeleteMapping("/homepage")
+    public ResponseEntity<Void> deleteHomepagePhoto() {
+        try {
+            photoService.deleteHomepagePhoto();
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 }
