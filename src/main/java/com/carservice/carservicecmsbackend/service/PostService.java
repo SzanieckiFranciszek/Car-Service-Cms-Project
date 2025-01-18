@@ -41,7 +41,9 @@ public class PostService {
             post.setTitle(postDto.title());
             post.setContent(postDto.content());
             post.setAuthor(postDto.author());
-            post.setPhoto(file);
+            if (file!=null) {
+                post.setPhoto(file);
+            }
             postRepository.save(post);
 
             return post;

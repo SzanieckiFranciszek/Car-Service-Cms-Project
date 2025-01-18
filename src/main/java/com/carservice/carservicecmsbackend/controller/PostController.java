@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -46,43 +47,10 @@ public class PostController {
     @PostMapping("/new")
     public ResponseEntity<Post> createPost(@RequestParam("post") String postJson,
                                            @RequestParam(value = "file", required = false) MultipartFile file) {
-        PostPhoto photo = new PostPhoto();
-        if(file != null && !file.isEmpty()){
-        try {
-            Path uploadPath = Paths.get(UPLOAD_DIR);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
+        PostPhoto photo = null;
+        if (file != null && !file.isEmpty() && !Objects.equals(file.getOriginalFilename(), "")) {
+            photo = new PostPhoto();
 
-            String fileName = file.getOriginalFilename();
-            Path filePath = uploadPath.resolve(fileName);
-            Files.write(filePath, file.getBytes());
-            photo.setPath(filePath.toString());
-            postPhotoService.savePostPhoto(photo);
-            System.out.println("Post photo uploaded and saved: " + fileName);
-
-        } catch (IOException e) {
-            throw new RuntimeException("Error while uploading post photo.");
-        }
-        }
-
-        Post createdPost = postService.createPostWithImage(postService.convertToPostDto(postJson), photo);
-
-        return ResponseEntity.ok(createdPost);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<PostWithPhotoDto> getPostWithPhotoByPostId(@Min(1) @NotNull @PathVariable Long id) {
-        PostWithPhotoDto postWithPhoto = postService.getPostWithPhotoByPostId(id);
-        return ResponseEntity.ok(postWithPhoto);
-    }
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Post> updatePostById(@PathVariable Long id, @RequestParam("post") String post,
-                                                  @RequestPart(value = "file", required = false) MultipartFile file) {
-        PostDto postDto = postService.convertToPostDto(post);
-        PostPhoto photo = new PostPhoto();
-        if(file != null && !file.isEmpty()){
             try {
                 Path uploadPath = Paths.get(UPLOAD_DIR);
                 if (!Files.exists(uploadPath)) {
@@ -100,9 +68,44 @@ public class PostController {
                 throw new RuntimeException("Error while uploading post photo.");
             }
         }
-            Post updatedPost = postService.updatePostWithPhotoByPostId(id, postDto, photo);
 
-            return ResponseEntity.ok(updatedPost);
+        Post createdPost = postService.createPostWithImage(postService.convertToPostDto(postJson), photo);
+
+        return ResponseEntity.ok(createdPost);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostWithPhotoDto> getPostWithPhotoByPostId(@Min(1) @NotNull @PathVariable Long id) {
+        PostWithPhotoDto postWithPhoto = postService.getPostWithPhotoByPostId(id);
+        return ResponseEntity.ok(postWithPhoto);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Post> updatePostById(@PathVariable Long id, @RequestParam("post") String post,
+                                               @RequestPart(value = "file", required = false) MultipartFile file) {
+        PostDto postDto = postService.convertToPostDto(post);
+        PostPhoto photo = new PostPhoto();
+        if (file != null && !file.isEmpty()) {
+            try {
+                Path uploadPath = Paths.get(UPLOAD_DIR);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                String fileName = file.getOriginalFilename();
+                Path filePath = uploadPath.resolve(fileName);
+                Files.write(filePath, file.getBytes());
+                photo.setPath(filePath.toString());
+                postPhotoService.savePostPhoto(photo);
+                System.out.println("Post photo uploaded and saved: " + fileName);
+
+            } catch (IOException e) {
+                throw new RuntimeException("Error while uploading post photo.");
+            }
+        }
+        Post updatedPost = postService.updatePostWithPhotoByPostId(id, postDto, photo);
+
+        return ResponseEntity.ok(updatedPost);
     }
 
     @DeleteMapping("/{id}")
