@@ -67,6 +67,7 @@ public class SectionService {
                 .title(section.getTitle())
                 .content(section.getContent())
                 .isVisible(section.getIsVisible())
+                .showInMenu(section.getShowInMenu())
                 .pageId(section.getPage().getId())
                 .build();
     }
@@ -78,6 +79,7 @@ public class SectionService {
         section.setTitle(sectionDto.title());
         section.setContent(sectionDto.content());
         section.setIsVisible(sectionDto.isVisible());
+        section.setShowInMenu(sectionDto.showInMenu());
 
         if (sectionDto.pageId() != null) {
             Page page = new Page();

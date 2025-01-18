@@ -138,6 +138,7 @@ public class PageService {
                 .title(section.getTitle())
                 .content(section.getContent())
                 .isVisible(section.getIsVisible())
+                .showInMenu(section.getShowInMenu())
                 .build();
     }
 
@@ -148,6 +149,7 @@ public class PageService {
         section.setTitle(sectionDto.title());
         section.setContent(sectionDto.content());
         section.setIsVisible(sectionDto.isVisible());
+        section.setShowInMenu(sectionDto.showInMenu());
         return section;
     }
 

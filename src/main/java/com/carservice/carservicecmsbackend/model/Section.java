@@ -32,4 +32,7 @@ public class Section {
     @JsonBackReference
     private Page page;
 
+    @Column(nullable = false)
+    private Boolean showInMenu;
+
 }
