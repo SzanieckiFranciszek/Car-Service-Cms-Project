@@ -1,9 +1,12 @@
 package com.carservice.carservicecmsbackend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Table(name = "pages")
 @Entity
@@ -20,21 +23,16 @@ public class Page{
     @Column(nullable = false)
     private String name;
 
-    private String title;
-
-    //To update, remove String type
-//    @OneToMany
-    @JoinColumn(name = "child_page_id")
-    private String childPage;
-
     @Column(name = "is_homepage", nullable = false)
     private Boolean isHomepage;
 
     @Column(name = "is_visible", nullable = false)
     private Boolean isVisible;
 
-    @Column(columnDefinition = "TEXT")
-    private String content;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "pages_id")
+    @JsonManagedReference
+    private List<Section> sections;
 
     @Column(name = "is_removable", nullable = false)
     private Boolean isRemovable;
