@@ -174,4 +174,11 @@ public class PageService {
                 .map(this::convertToDtoWithSection)
                 .toList();
     }
+
+//    public List<PageSectionDto> getAllPagesWithSectionForShowInMenu() {
+//        return pageRepository.findAll()
+//                .stream()
+//                .map(this::convertToDtoWithSection)
+//                .toList();
+//    }
 }

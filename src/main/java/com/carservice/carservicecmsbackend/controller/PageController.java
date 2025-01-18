@@ -28,6 +28,11 @@ public class PageController {
         return pageService.getAllPagesWithSection();
     }
 
+//    @GetMapping("/section/menu")
+//    public List<PageSectionDto> getAllPagesWithSectionForShowInMenu() {
+//        return pageService.getAllPagesWithSectionForShowInMenu();
+//    }
+
     @GetMapping("/details")
     public List<PageDetailsDto> getAllPagesDetails() {
         return pageService.getAllPagesDetails();
@@ -54,7 +59,7 @@ public class PageController {
         return pageService.getPageById(id);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public PageSectionDto createPage(@RequestBody PageSectionDto pageSectionDto) {
         return pageService.savePage(pageSectionDto);
     }
