@@ -28,6 +28,7 @@ public class OpinionService {
                         .id(opinion.getId())
                         .content(opinion.getContent())
                         .user(opinion.getUserOpinionDto())
+                        .createdAt(opinion.getCreatedAt())
                         .build())
                 .toList();
     }
