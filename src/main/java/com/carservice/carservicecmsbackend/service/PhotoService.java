@@ -116,4 +116,33 @@ public class PhotoService {
     public Photo getHomePagePhoto() {
         return photoRepository.findByIsHomePagePhotoTrue();
     }
+
+    public Photo replaceHomepagePhoto(String fileName, byte[] fileData) throws IOException {
+
+        Photo existingPhoto = photoRepository.findByIsHomePagePhotoTrue();
+
+        if (existingPhoto != null) {
+
+            Path oldPhotoPath = Paths.get(existingPhoto.getPath());
+            if (Files.exists(oldPhotoPath)) {
+                Files.delete(oldPhotoPath);
+            }
+
+            photoRepository.deleteById(existingPhoto.getId());
+        }
+
+        Path uploadPath = Paths.get(UPLOAD_DIR);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        Path newPhotoPath = uploadPath.resolve(fileName);
+        Files.write(newPhotoPath, fileData);
+
+        Photo newPhoto = new Photo();
+        newPhoto.setPath(newPhotoPath.toString());
+        newPhoto.setIsHomePagePhoto(true);
+
+        return photoRepository.save(newPhoto);
+    }
 }

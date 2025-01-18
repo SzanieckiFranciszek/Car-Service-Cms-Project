@@ -136,4 +136,18 @@ public class PhotoController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PutMapping("/replace/homepage")
+    public ResponseEntity<Photo> replaceHomepagePhoto(@RequestParam("file") MultipartFile file) {
+        try {
+            String fileName = file.getOriginalFilename();
+            byte[] fileData = file.getBytes();
+            Photo updatedPhoto = photoService.replaceHomepagePhoto(fileName, fileData);
+            return ResponseEntity.ok(updatedPhoto);
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().body(null);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }
