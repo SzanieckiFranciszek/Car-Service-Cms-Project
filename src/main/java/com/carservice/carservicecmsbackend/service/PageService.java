@@ -7,6 +7,7 @@ import com.carservice.carservicecmsbackend.dto.SectionDto;
 import com.carservice.carservicecmsbackend.model.Page;
 import com.carservice.carservicecmsbackend.model.Section;
 import com.carservice.carservicecmsbackend.repository.PageRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,17 +40,40 @@ public class PageService {
                 .orElseThrow(() -> new RuntimeException("Page not found!"));
     }
 
+    @Transactional
     public PageSectionDto savePage(PageSectionDto dto) {
         Page page = convertToEntityWithSection(dto);
+
+        if (pageRepository.findByOrderIndex(page.getOrderIndex()).isPresent()) {
+            shiftOrderIndexes(page.getOrderIndex(), 1);
+        }
+
         Page savedPage = pageRepository.save(page);
         return convertToDtoWithSection(savedPage);
     }
 
+    @Transactional
     public PageSectionDto updatePage(Long id, PageSectionDto pageDto) {
         Page page = pageRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Page not found with ID: " + id));
 
-        page.setOrderIndex(pageDto.orderIndex());
+        Long currentOrderIndex = page.getOrderIndex();
+        Long newOrderIndex = pageDto.orderIndex();
+
+        if (!currentOrderIndex.equals(newOrderIndex)) {
+            if (newOrderIndex != null && newOrderIndex <= 0) {
+                throw new IllegalArgumentException("Order index must be greater than 0.");
+            }
+
+
+            if (newOrderIndex > currentOrderIndex) {
+                shiftOrderIndexes(currentOrderIndex + 1, newOrderIndex, -1);
+            } else {
+                shiftOrderIndexes(newOrderIndex, currentOrderIndex - 1, 1);
+            }
+            page.setOrderIndex(pageDto.orderIndex());
+        }
+
         page.setName(pageDto.name());
         if (pageDto.section()!=null) {
             page.setSections(pageDto.section());
@@ -153,12 +177,17 @@ public class PageService {
         return section;
     }
 
-
+    @Transactional
     public void deletePage(Long id) {
         if (!pageRepository.existsById(id)) {
             throw new RuntimeException("Page not found with ID: " + id);
         }
+        Page page = pageRepository.findById(id).orElseThrow();
+
+        Long deletedOrderIndex = page.getOrderIndex();
         pageRepository.deleteById(id);
+
+        shiftOrderIndexes(deletedOrderIndex + 1, -1);
     }
 
     public List<PageSectionDto> getAllPagesWithSection() {
@@ -175,10 +204,24 @@ public class PageService {
                 .toList();
     }
 
-//    public List<PageSectionDto> getAllPagesWithSectionForShowInMenu() {
-//        return pageRepository.findAll()
-//                .stream()
-//                .map(this::convertToDtoWithSection)
-//                .toList();
-//    }
+    private void shiftOrderIndexes(Long startIndex, int shift) {
+        List<Page> pagesToShift = pageRepository.findByOrderIndexGreaterThanEqual(startIndex);
+
+        for (Page page : pagesToShift) {
+            page.setOrderIndex(page.getOrderIndex() + shift);
+            pageRepository.save(page);
+        }
+    }
+
+    private void shiftOrderIndexes(Long startIndex, Long endIndex, int shift) {
+        List<Page> pagesToShift = pageRepository.findAllByOrderByOrderIndexAsc()
+                .stream()
+                .filter(page -> page.getOrderIndex() >= startIndex && page.getOrderIndex() <= endIndex)
+                .toList();
+
+        for (Page page : pagesToShift) {
+            page.setOrderIndex(page.getOrderIndex() + shift);
+            pageRepository.save(page);
+        }
+    }
 }
