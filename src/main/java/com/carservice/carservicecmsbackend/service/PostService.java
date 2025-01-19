@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -26,10 +27,33 @@ public class PostService {
         this.objectMapper = objectMapper;
     }
 
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
-    }
+    public List<PostWithPhotoDto> getAllPostsWithPhoto() {
+        return postRepository.findAll().stream()
+                .map(post -> {
+                    byte[] photo = null;
 
+                    if (post.getPhoto() != null && post.getPhoto().getPath() != null) {
+                        try {
+                            Path photoPath = Paths.get(post.getPhoto().getPath());
+                            if (Files.exists(photoPath)) {
+                                photo = Files.readAllBytes(photoPath);
+                            }
+                        } catch (IOException e) {
+                            throw new RuntimeException("Failed to load photo for post with ID: " + post.getId(), e);
+                        }
+                    }
+
+                    return PostWithPhotoDto.builder()
+                            .id(post.getId())
+                            .title(post.getTitle())
+                            .content(post.getContent())
+                            .author(post.getAuthor())
+                            .photo(photo)
+                            .createdAt(post.getCreatedAt())
+                            .build();
+                })
+                .collect(Collectors.toList());
+    }
     public Post findPostById(Long id) {
         return postRepository.findById(id).orElseThrow();
     }

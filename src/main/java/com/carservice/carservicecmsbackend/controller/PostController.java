@@ -33,8 +33,8 @@ public class PostController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Post>> getAllPosts() {
-        List<Post> posts = postService.getAllPosts();
+    public ResponseEntity<List<PostWithPhotoDto>> getAllPosts() {
+        List<PostWithPhotoDto> posts = postService.getAllPostsWithPhoto();
         return ResponseEntity.ok(posts);
     }
 
