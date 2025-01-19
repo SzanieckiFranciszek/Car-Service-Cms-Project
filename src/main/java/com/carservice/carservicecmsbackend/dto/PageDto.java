@@ -8,5 +8,6 @@ public record PageDto(Long id,
                       String name,
                       Boolean isHomepage,
                       Boolean isVisible,
-                      Boolean isRemovable) {
+                      Boolean isRemovable,
+                      Boolean isGallery) {
 }

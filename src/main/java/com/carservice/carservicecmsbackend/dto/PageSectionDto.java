@@ -12,5 +12,6 @@ public record PageSectionDto(Long id,
                              Boolean isHomepage,
                              Boolean isVisible,
                             List<Section> section,
-                             Boolean isRemovable) {
+                             Boolean isRemovable,
+                             Boolean isGallery) {
 }

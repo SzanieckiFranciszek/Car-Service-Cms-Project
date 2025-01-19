@@ -81,6 +81,7 @@ public class PageService {
         page.setIsHomepage(pageDto.isHomepage());
         page.setIsVisible(pageDto.isVisible());
         page.setIsRemovable(pageDto.isRemovable());
+        page.setIsGallery(pageDto.isGallery());
 
         Page updatedPage = pageRepository.save(page);
         return convertToDtoWithSection(updatedPage);
@@ -94,6 +95,7 @@ public class PageService {
                 .isHomepage(page.getIsHomepage())
                 .isVisible(page.getIsVisible())
                 .isRemovable(page.getIsRemovable())
+                .isGallery(page.getIsGallery())
                 .build();
     }
 
@@ -106,6 +108,7 @@ public class PageService {
                 .isVisible(page.getIsVisible())
                 .section(page.getSections())
                 .isRemovable(page.getIsRemovable())
+                .isGallery(page.getIsGallery())
                 .build();
     }
 
@@ -126,6 +129,7 @@ public class PageService {
         page.setIsHomepage(dto.isHomepage());
         page.setIsVisible(dto.isVisible());
         page.setIsRemovable(dto.isRemovable());
+        page.setIsGallery(dto.isGallery());
         return page;
     }
 
@@ -138,6 +142,7 @@ public class PageService {
         page.setIsVisible(dto.isVisible());
         page.setSections(dto.section());
         page.setIsRemovable(dto.isRemovable());
+        page.setIsGallery(dto.isGallery());
         return page;
     }
 

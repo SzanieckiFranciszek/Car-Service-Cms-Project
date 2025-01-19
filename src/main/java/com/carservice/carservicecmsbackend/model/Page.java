@@ -29,6 +29,9 @@ public class Page{
     @Column(name = "is_visible", nullable = false)
     private Boolean isVisible;
 
+    @Column(name = "is_gallery", nullable = false)
+    private Boolean isGallery;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pages_id")
     @JsonManagedReference
