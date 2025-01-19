@@ -17,13 +17,13 @@ public class Page{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_index")
+    @Column(name = "order_index",nullable = false)
     private Long orderIndex;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "is_homepage")
+    @Column(name = "is_homepage",nullable = false)
     private Boolean isHomepage;
 
     @Column(name = "is_visible", nullable = false)
@@ -34,6 +34,6 @@ public class Page{
     @JsonManagedReference
     private List<Section> sections;
 
-    @Column(name = "is_removable")
+    @Column(name = "is_removable",nullable = false)
     private Boolean isRemovable;
 }

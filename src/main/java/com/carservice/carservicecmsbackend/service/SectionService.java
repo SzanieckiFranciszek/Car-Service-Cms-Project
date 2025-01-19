@@ -31,6 +31,9 @@ public class SectionService {
 
     public SectionDto createSection(SectionDto sectionDto) {
         Section section = convertToEntity(sectionDto);
+        if (sectionRepository.findByOrderIndex(section.getOrderIndex()).isPresent()) {
+            shiftOrderIndexes(section.getOrderIndex(), 1);
+        }
         Section savedSection = sectionRepository.save(section);
         return convertToDto(savedSection);
     }
@@ -39,7 +42,24 @@ public class SectionService {
         Section section = sectionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Section not found with ID: " + id));
 
-        section.setOrderIndexOnPage(sectionDto.orderIndexOnPage());
+        Long currentOrderIndex = section.getOrderIndex();
+        Long newOrderIndex = sectionDto.orderIndex();
+
+        if (!currentOrderIndex.equals(newOrderIndex)) {
+            if (newOrderIndex != null && newOrderIndex <= 0) {
+                throw new IllegalArgumentException("Order index must be greater than 0.");
+            }
+
+            // Jeśli zmiana indeksu
+            if (newOrderIndex > currentOrderIndex) {
+                shiftOrderIndexes(currentOrderIndex + 1, newOrderIndex, -1);
+            } else {
+                shiftOrderIndexes(newOrderIndex, currentOrderIndex - 1, 1);
+            }
+
+            section.setOrderIndex(sectionDto.orderIndex());
+        }
+
         section.setTitle(sectionDto.title());
         section.setContent(sectionDto.content());
         section.setIsVisible(sectionDto.isVisible());
@@ -57,13 +77,21 @@ public class SectionService {
         if (!sectionRepository.existsById(id)) {
             throw new RuntimeException("Section not found with ID: " + id);
         }
+
+        Section section = sectionRepository.findById(id)
+                .orElseThrow();
+
+        Long deletedOrderIndex = section.getOrderIndex();
+
         sectionRepository.deleteById(id);
+
+        shiftOrderIndexes(deletedOrderIndex + 1, -1);
     }
 
     private SectionDto convertToDto(Section section) {
         return SectionDto.builder()
                 .id(section.getId())
-                .orderIndexOnPage(section.getOrderIndexOnPage())
+                .orderIndex(section.getOrderIndex())
                 .title(section.getTitle())
                 .content(section.getContent())
                 .isVisible(section.getIsVisible())
@@ -75,7 +103,7 @@ public class SectionService {
     private Section convertToEntity(SectionDto sectionDto) {
         Section section = new Section();
         section.setId(sectionDto.id());
-        section.setOrderIndexOnPage(sectionDto.orderIndexOnPage());
+        section.setOrderIndex(sectionDto.orderIndex());
         section.setTitle(sectionDto.title());
         section.setContent(sectionDto.content());
         section.setIsVisible(sectionDto.isVisible());
@@ -88,6 +116,27 @@ public class SectionService {
         }
 
         return section;
+    }
+
+    private void shiftOrderIndexes(Long startIndex, int shift) {
+        List<Section> sectionsToShift = sectionRepository.findByOrderIndexGreaterThanEqual(startIndex);
+
+        for (Section section : sectionsToShift) {
+            section.setOrderIndex(section.getOrderIndex() + shift);
+            sectionRepository.save(section);
+        }
+    }
+
+    private void shiftOrderIndexes(Long startIndex, Long endIndex, int shift) {
+        List<Section> sectionsToShift = sectionRepository.findAllByOrderByOrderIndexAsc()
+                .stream()
+                .filter(section -> section.getOrderIndex() >= startIndex && section.getOrderIndex() <= endIndex)
+                .toList();
+
+        for (Section section : sectionsToShift) {
+            section.setOrderIndex(section.getOrderIndex() + shift);
+            sectionRepository.save(section);
+        }
     }
 
 }

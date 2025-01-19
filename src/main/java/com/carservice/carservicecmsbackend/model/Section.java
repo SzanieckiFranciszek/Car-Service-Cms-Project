@@ -16,7 +16,7 @@ public class Section {
     private Long id;
 
     @Column(name = "order_index", nullable = false)
-    private Long orderIndexOnPage;
+    private Long orderIndex;
 
     @Column(nullable = false)
     private String title;

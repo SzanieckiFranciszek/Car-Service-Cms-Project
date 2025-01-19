@@ -158,7 +158,7 @@ public class PageService {
     private SectionDto convertSectionToDto(Section section) {
         return SectionDto.builder()
                 .id(section.getId())
-                .orderIndexOnPage(section.getOrderIndexOnPage())
+                .orderIndex(section.getOrderIndex())
                 .title(section.getTitle())
                 .content(section.getContent())
                 .isVisible(section.getIsVisible())
@@ -169,7 +169,7 @@ public class PageService {
     private Section convertDtoToSection(SectionDto sectionDto) {
         Section section = new Section();
         section.setId(sectionDto.id());
-        section.setOrderIndexOnPage(sectionDto.orderIndexOnPage());
+        section.setOrderIndex(sectionDto.orderIndex());
         section.setTitle(sectionDto.title());
         section.setContent(sectionDto.content());
         section.setIsVisible(sectionDto.isVisible());
