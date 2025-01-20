@@ -63,6 +63,33 @@ public class PhotoController {
         }
     }
 
+    @PutMapping("/upload")
+    public ResponseEntity<String> uploadPhotoWithData(@RequestParam("file") MultipartFile file, @RequestBody PhotoDto photoDto) {
+        try {
+            Path uploadPath = Paths.get(UPLOAD_DIR);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            String fileName = file.getOriginalFilename();
+            Path filePath = uploadPath.resolve(fileName);
+            Files.write(filePath, file.getBytes());
+
+
+            PhotoDto photo = PhotoDto.builder()
+                    .orderIndex(photoDto.orderIndex())
+                    .path(filePath.toString())
+                            .isMainPhoto(photoDto.isMainPhoto()).build();
+
+            photoService.savePhoto(photo);
+
+            return ResponseEntity.ok("Photo uploaded and saved: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error while uploading file.");
+        }
+    }
+
     @GetMapping("/download/{id}")
     public ResponseEntity<Resource> downloadPhotoById(@PathVariable Long id) {
         try {

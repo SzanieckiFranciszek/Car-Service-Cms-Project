@@ -23,7 +23,7 @@ public class PhotoService {
     }
 
     public List<PhotoDto> getAllPhotosSorted() {
-        return photoRepository.findAllByOrderByOrderIndexAsc().stream().map(this::convertEntityToDto).collect(Collectors.toList());
+        return photoRepository.findAllByIsHomePagePhotoFalseOrIsHomePagePhotoNullOrderByOrderIndexAsc().stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 
     public PhotoDto getPhotoById(Long id) {
@@ -31,7 +31,7 @@ public class PhotoService {
     }
 
     public PhotoDto savePhoto(PhotoDto photoDto) {
-        Photo photo = convertDtoToEntity(photoDto); // Konwertuj PhotoDto na Photo
+        Photo photo = convertDtoToEntity(photoDto);
         Photo savedPhoto = photoRepository.save(photo);
         return convertEntityToDto(savedPhoto);
     }
@@ -47,6 +47,7 @@ public class PhotoService {
                 .orderIndex(photo.getOrderIndex())
                 .path(photo.getPath())
                 .createdAt(photo.getCreatedAt())
+                .isMainPhoto(photo.getIsMainPhoto())
                 .build();
     }
 
@@ -56,6 +57,7 @@ public class PhotoService {
         photo.setOrderIndex(photoDto.orderIndex());
         photo.setPath(photoDto.path());
         photo.setCreatedAt(photoDto.createdAt());
+        photo.setIsMainPhoto(photoDto.isMainPhoto());
         return photo;
     }
 

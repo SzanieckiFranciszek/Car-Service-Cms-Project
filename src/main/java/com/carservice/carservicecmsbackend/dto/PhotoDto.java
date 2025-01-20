@@ -5,5 +5,5 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record PhotoDto(Long id, Integer orderIndex, String path, LocalDateTime createdAt) {
+public record PhotoDto(Long id, Integer orderIndex, String path, LocalDateTime createdAt, Boolean isMainPhoto) {
 }
