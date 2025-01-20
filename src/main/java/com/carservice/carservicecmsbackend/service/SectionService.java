@@ -45,26 +45,31 @@ public class SectionService {
 
         Long currentOrderIndex = section.getOrderIndex();
         Long newOrderIndex = sectionDto.orderIndex();
+        if (sectionDto.orderIndex() != null) {
+            if (!currentOrderIndex.equals(newOrderIndex)) {
+                if (newOrderIndex != null && newOrderIndex <= 0) {
+                    throw new IllegalArgumentException("Order index must be greater than 0.");
+                }
 
-        if (!currentOrderIndex.equals(newOrderIndex)) {
-            if (newOrderIndex != null && newOrderIndex <= 0) {
-                throw new IllegalArgumentException("Order index must be greater than 0.");
+                if (newOrderIndex > currentOrderIndex) {
+                    shiftOrderIndexes(currentOrderIndex + 1, newOrderIndex, -1);
+                } else {
+                    shiftOrderIndexes(newOrderIndex, currentOrderIndex - 1, 1);
+                }
+
+                section.setOrderIndex(sectionDto.orderIndex());
             }
-
-            // Jeśli zmiana indeksu
-            if (newOrderIndex > currentOrderIndex) {
-                shiftOrderIndexes(currentOrderIndex + 1, newOrderIndex, -1);
-            } else {
-                shiftOrderIndexes(newOrderIndex, currentOrderIndex - 1, 1);
-            }
-
-            section.setOrderIndex(sectionDto.orderIndex());
         }
 
-        section.setTitle(sectionDto.title());
-        section.setContent(sectionDto.content());
-        section.setIsVisible(sectionDto.isVisible());
-
+        if (sectionDto.title() != null) {
+            section.setTitle(sectionDto.title());
+        }
+        if (sectionDto.content() != null) {
+            section.setContent(sectionDto.content());
+        }
+        if (sectionDto.isVisible() != null) {
+            section.setIsVisible(sectionDto.isVisible());
+        }
         if (sectionDto.pageId() != null) {
             Page page = new Page();
             page.setId(sectionDto.pageId());
@@ -161,7 +166,7 @@ public class SectionService {
 
             section.setOrderIndex(newOrderIndex);
         }
-                sectionRepository.save(section);
+        sectionRepository.save(section);
 
         return convertToDto(section);
     }
