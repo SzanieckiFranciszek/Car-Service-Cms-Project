@@ -43,6 +43,11 @@ public class SectionController {
         return ResponseEntity.ok(updatedSection);
     }
 
+    @PutMapping("/{id}/neworder/{newOrder}")
+    public ResponseEntity<SectionDto> updateSectionOrderIndex(@PathVariable Long id, @PathVariable Long newOrder) {
+        return ResponseEntity.ok(sectionService.updateSectionOrderIndex(id, newOrder));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSection(@PathVariable Long id) {
         sectionService.deleteSection(id);

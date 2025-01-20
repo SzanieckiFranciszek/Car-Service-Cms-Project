@@ -229,4 +229,30 @@ public class PageService {
             pageRepository.save(page);
         }
     }
+
+    @Transactional
+    public PageSectionDto updatePageOrderIndex(Long id, Long newOrderIndex) {
+        Page page = pageRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Page not found with ID: " + id));
+
+        Long currentOrderIndex = page.getOrderIndex();
+
+        if (!currentOrderIndex.equals(newOrderIndex)) {
+            if (newOrderIndex <= 0) {
+                throw new IllegalArgumentException("Order index must be greater than 0.");
+            }
+
+            if (newOrderIndex > currentOrderIndex) {
+                shiftOrderIndexes(currentOrderIndex + 1, newOrderIndex, -1);
+            } else {
+                shiftOrderIndexes(newOrderIndex, currentOrderIndex - 1, 1);
+            }
+
+            page.setOrderIndex(newOrderIndex);
+        }
+
+        pageRepository.save(page);
+
+        return convertToDtoWithSection(page);
+    }
 }

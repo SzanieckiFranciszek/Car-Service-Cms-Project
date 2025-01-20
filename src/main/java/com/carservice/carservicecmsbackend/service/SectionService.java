@@ -4,6 +4,7 @@ import com.carservice.carservicecmsbackend.dto.SectionDto;
 import com.carservice.carservicecmsbackend.model.Page;
 import com.carservice.carservicecmsbackend.model.Section;
 import com.carservice.carservicecmsbackend.repository.SectionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -139,4 +140,29 @@ public class SectionService {
         }
     }
 
+    @Transactional
+    public SectionDto updateSectionOrderIndex(Long id, Long newOrderIndex) {
+        Section section = sectionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Section not found with ID: " + id));
+
+        Long currentOrderIndex = section.getOrderIndex();
+
+        if (!currentOrderIndex.equals(newOrderIndex)) {
+            if (newOrderIndex <= 0) {
+                throw new IllegalArgumentException("Order index must be greater than 0.");
+            }
+
+
+            if (newOrderIndex > currentOrderIndex) {
+                shiftOrderIndexes(currentOrderIndex + 1, newOrderIndex, -1);
+            } else {
+                shiftOrderIndexes(newOrderIndex, currentOrderIndex - 1, 1);
+            }
+
+            section.setOrderIndex(newOrderIndex);
+        }
+                sectionRepository.save(section);
+
+        return convertToDto(section);
+    }
 }

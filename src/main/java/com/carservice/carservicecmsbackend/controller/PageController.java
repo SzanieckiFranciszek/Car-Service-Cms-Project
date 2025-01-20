@@ -28,11 +28,6 @@ public class PageController {
         return pageService.getAllPagesWithSection();
     }
 
-//    @GetMapping("/section/menu")
-//    public List<PageSectionDto> getAllPagesWithSectionForShowInMenu() {
-//        return pageService.getAllPagesWithSectionForShowInMenu();
-//    }
-
     @GetMapping("/details")
     public List<PageDetailsDto> getAllPagesDetails() {
         return pageService.getAllPagesDetails();
@@ -67,6 +62,11 @@ public class PageController {
     @PatchMapping("/update/{id}")
     public PageSectionDto updatePageById(@PathVariable Long id, @RequestBody PageSectionDto pageDto) {
         return pageService.updatePage(id,pageDto);
+    }
+
+    @PutMapping("/{id}/neworder/{newOrder}")
+    public ResponseEntity<PageSectionDto> updatePageOrderIndex(@PathVariable Long id, @PathVariable Long newOrder) {
+        return ResponseEntity.ok(pageService.updatePageOrderIndex(id, newOrder));
     }
 
     @DeleteMapping("/{id}")
