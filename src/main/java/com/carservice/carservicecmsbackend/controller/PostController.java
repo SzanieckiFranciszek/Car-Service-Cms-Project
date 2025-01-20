@@ -112,7 +112,7 @@ public class PostController {
     public ResponseEntity<Void> deletePostById(@Min(1) @NotNull @PathVariable Long id) {
         Post post = postService.findPostById(id);
 
-        if (post.getPhoto() != null) {
+        if (post.getPhoto() != null && post.getPhoto().getPath() != null) {
             Path photoPath = Paths.get(post.getPhoto().getPath());
             try {
                 if (Files.exists(photoPath)) {
@@ -123,6 +123,7 @@ public class PostController {
                 throw new RuntimeException("Failed to delete photo for post with ID: " + id, e);
             }
         }
+
         postService.deletePostById(id);
 
         return ResponseEntity.noContent().build();
