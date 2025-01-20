@@ -59,29 +59,45 @@ public class PageService {
 
         Long currentOrderIndex = page.getOrderIndex();
         Long newOrderIndex = pageDto.orderIndex();
+        if(pageDto.orderIndex() != null) {
+            if (!currentOrderIndex.equals(newOrderIndex)) {
+                if (newOrderIndex != null && newOrderIndex <= 0) {
+                    throw new IllegalArgumentException("Order index must be greater than 0.");
+                }
 
-        if (!currentOrderIndex.equals(newOrderIndex)) {
-            if (newOrderIndex != null && newOrderIndex <= 0) {
-                throw new IllegalArgumentException("Order index must be greater than 0.");
+
+                if (newOrderIndex > currentOrderIndex) {
+                    shiftOrderIndexes(currentOrderIndex + 1, newOrderIndex, -1);
+                } else {
+                    shiftOrderIndexes(newOrderIndex, currentOrderIndex - 1, 1);
+                }
+                page.setOrderIndex(pageDto.orderIndex());
             }
-
-
-            if (newOrderIndex > currentOrderIndex) {
-                shiftOrderIndexes(currentOrderIndex + 1, newOrderIndex, -1);
-            } else {
-                shiftOrderIndexes(newOrderIndex, currentOrderIndex - 1, 1);
-            }
-            page.setOrderIndex(pageDto.orderIndex());
         }
 
-        page.setName(pageDto.name());
-        if (pageDto.section()!=null) {
+        if (pageDto.name() != null) {
+            page.setName(pageDto.name());
+        }
+
+        if (pageDto.section() != null) {
             page.setSections(pageDto.section());
         }
-        page.setIsHomepage(pageDto.isHomepage());
-        page.setIsVisible(pageDto.isVisible());
-        page.setIsRemovable(pageDto.isRemovable());
-        page.setIsGallery(pageDto.isGallery());
+
+        if (pageDto.isHomepage() != null) {
+            page.setIsHomepage(pageDto.isHomepage());
+        }
+
+        if (pageDto.isVisible() != null) {
+            page.setIsVisible(pageDto.isVisible());
+        }
+
+        if (pageDto.isRemovable() != null) {
+            page.setIsRemovable(pageDto.isRemovable());
+        }
+
+        if (pageDto.isGallery() != null) {
+            page.setIsGallery(pageDto.isGallery());
+        }
 
         Page updatedPage = pageRepository.save(page);
         return convertToDtoWithSection(updatedPage);

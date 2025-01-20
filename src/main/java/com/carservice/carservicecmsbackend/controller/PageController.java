@@ -59,7 +59,7 @@ public class PageController {
         return pageService.savePage(pageSectionDto);
     }
 
-    @PatchMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public PageSectionDto updatePageById(@PathVariable Long id, @RequestBody PageSectionDto pageDto) {
         return pageService.updatePage(id,pageDto);
     }
