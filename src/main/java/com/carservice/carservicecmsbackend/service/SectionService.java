@@ -33,7 +33,7 @@ public class SectionService {
     public SectionDto createSection(SectionDto sectionDto) {
         Section section = convertToEntity(sectionDto);
         if (sectionRepository.findByOrderIndex(section.getOrderIndex()).isPresent()) {
-            shiftOrderIndexes(section.getOrderIndex(), 1);
+            shiftOrderIndexesForPage(section.getPage().getId(), section.getOrderIndex(), 1);
         }
         Section savedSection = sectionRepository.save(section);
         return convertToDto(savedSection);
@@ -52,9 +52,9 @@ public class SectionService {
                 }
 
                 if (newOrderIndex > currentOrderIndex) {
-                    shiftOrderIndexes(currentOrderIndex + 1, newOrderIndex, -1);
+                    shiftOrderIndexesForPage(currentOrderIndex + 1, newOrderIndex, -1);
                 } else {
-                    shiftOrderIndexes(newOrderIndex, currentOrderIndex - 1, 1);
+                    shiftOrderIndexesForPage(newOrderIndex, currentOrderIndex - 1, 1);
                 }
 
                 section.setOrderIndex(sectionDto.orderIndex());
@@ -86,12 +86,12 @@ public class SectionService {
 
         Section section = sectionRepository.findById(id)
                 .orElseThrow();
-
+        Long pageId = section.getPage().getId();
         Long deletedOrderIndex = section.getOrderIndex();
 
         sectionRepository.deleteById(id);
 
-        shiftOrderIndexes(deletedOrderIndex + 1, -1);
+        shiftOrderIndexesForPage(pageId,deletedOrderIndex + 1, -1);
     }
 
     private SectionDto convertToDto(Section section) {
@@ -124,8 +124,8 @@ public class SectionService {
         return section;
     }
 
-    private void shiftOrderIndexes(Long startIndex, int shift) {
-        List<Section> sectionsToShift = sectionRepository.findByOrderIndexGreaterThanEqual(startIndex);
+    private void shiftOrderIndexesForPage(Long pageId, Long startIndex, int shift) {
+        List<Section> sectionsToShift = sectionRepository.findAllByPageIdAndOrderIndexGreaterThanEqual(pageId, startIndex);
 
         for (Section section : sectionsToShift) {
             section.setOrderIndex(section.getOrderIndex() + shift);
@@ -133,8 +133,8 @@ public class SectionService {
         }
     }
 
-    private void shiftOrderIndexes(Long startIndex, Long endIndex, int shift) {
-        List<Section> sectionsToShift = sectionRepository.findAllByOrderByOrderIndexAsc()
+    private void shiftOrderIndexesForPage(Long pageId,Long startIndex, Long endIndex, int shift) {
+        List<Section> sectionsToShift = sectionRepository.findAllByPageIdOrderByOrderIndexAsc(pageId)
                 .stream()
                 .filter(section -> section.getOrderIndex() >= startIndex && section.getOrderIndex() <= endIndex)
                 .toList();
@@ -146,11 +146,12 @@ public class SectionService {
     }
 
     @Transactional
-    public SectionDto updateSectionOrderIndex(Long id, Long newOrderIndex) {
+    public SectionDto updateSectionOrderIndexForPage(Long id, Long newOrderIndex) {
         Section section = sectionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Section not found with ID: " + id));
 
         Long currentOrderIndex = section.getOrderIndex();
+        Long pageId = section.getPage().getId();
 
         if (!currentOrderIndex.equals(newOrderIndex)) {
             if (newOrderIndex <= 0) {
@@ -159,9 +160,9 @@ public class SectionService {
 
 
             if (newOrderIndex > currentOrderIndex) {
-                shiftOrderIndexes(currentOrderIndex + 1, newOrderIndex, -1);
+                shiftOrderIndexesForPage(pageId, currentOrderIndex + 1, newOrderIndex, -1);
             } else {
-                shiftOrderIndexes(newOrderIndex, currentOrderIndex - 1, 1);
+                shiftOrderIndexesForPage(pageId, newOrderIndex, currentOrderIndex - 1, 1);
             }
 
             section.setOrderIndex(newOrderIndex);

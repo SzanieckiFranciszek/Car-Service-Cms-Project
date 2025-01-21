@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface SectionRepository extends JpaRepository<Section,Long> {
     Optional<Section> findByOrderIndex(Long orderIndex);
 
-    List<Section> findByOrderIndexGreaterThanEqual(Long orderIndex);
+    List<Section> findAllByPageIdAndOrderIndexGreaterThanEqual(Long pageId, Long orderIndex);
 
-    List<Section> findAllByOrderByOrderIndexAsc();
+    List<Section> findAllByPageIdOrderByOrderIndexAsc(Long pageId);
 }

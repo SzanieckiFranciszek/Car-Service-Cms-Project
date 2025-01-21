@@ -44,8 +44,8 @@ public class SectionController {
     }
 
     @PutMapping("/{id}/neworder/{newOrder}")
-    public ResponseEntity<SectionDto> updateSectionOrderIndex(@PathVariable Long id, @PathVariable Long newOrder) {
-        return ResponseEntity.ok(sectionService.updateSectionOrderIndex(id, newOrder));
+    public ResponseEntity<SectionDto> updateSectionOrderIndexForPage(@PathVariable Long id, @PathVariable Long newOrder) {
+        return ResponseEntity.ok(sectionService.updateSectionOrderIndexForPage(id, newOrder));
     }
 
     @DeleteMapping("/{id}")
