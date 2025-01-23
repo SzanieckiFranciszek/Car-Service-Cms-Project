@@ -1,6 +1,5 @@
 package com.carservice.carservicecmsbackend.model;
 
-import com.carservice.carservicecmsbackend.dto.PhotoDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,8 +21,8 @@ public class Post {
     private String content;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "photo_id")
-    private PostPhoto photo;
+    @JoinColumn(name = "post_photo_id")
+    private PostPhoto postPhoto;
 
     private String author;
 

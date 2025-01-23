@@ -32,9 +32,9 @@ public class PostService {
                 .map(post -> {
                     byte[] photo = null;
 
-                    if (post.getPhoto() != null && post.getPhoto().getPath() != null) {
+                    if (post.getPostPhoto() != null && post.getPostPhoto().getPath() != null) {
                         try {
-                            Path photoPath = Paths.get(post.getPhoto().getPath());
+                            Path photoPath = Paths.get(post.getPostPhoto().getPath());
                             if (Files.exists(photoPath)) {
                                 photo = Files.readAllBytes(photoPath);
                             }
@@ -66,7 +66,7 @@ public class PostService {
             post.setContent(postDto.content());
             post.setAuthor(postDto.author());
             if (file!=null) {
-                post.setPhoto(file);
+                post.setPostPhoto(file);
             }
             postRepository.save(post);
 
@@ -88,7 +88,7 @@ public class PostService {
 
         byte[] photo = null;
         try {
-            Path photoPath = Paths.get(post.getPhoto().getPath());
+            Path photoPath = Paths.get(post.getPostPhoto().getPath());
             if (Files.exists(photoPath)) {
                 photo = Files.readAllBytes(photoPath);
             }
@@ -107,16 +107,16 @@ public class PostService {
     }
 
     public Post updatePostWithPhotoByPostId(Long id, PostDto postDto, PostPhoto photo) {
-        PostPhoto existPhoto= postRepository.findById(id).get().getPhoto();
+        PostPhoto existPhoto= postRepository.findById(id).get().getPostPhoto();
 
         return postRepository.findById(id).map(post -> {
             post.setAuthor(postDto.author());
             post.setTitle(postDto.title());
             post.setContent(postDto.content());
             if(photo == null) {
-                post.setPhoto(existPhoto);
+                post.setPostPhoto(existPhoto);
             }else{
-                post.setPhoto(photo);
+                post.setPostPhoto(photo);
             }
             return postRepository.save(post);
         }).orElseThrow(() -> new RuntimeException("Post not found"));

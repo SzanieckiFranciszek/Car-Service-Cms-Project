@@ -112,12 +112,12 @@ public class PostController {
     public ResponseEntity<Void> deletePostById(@Min(1) @NotNull @PathVariable Long id) {
         Post post = postService.findPostById(id);
 
-        if (post.getPhoto() != null && post.getPhoto().getPath() != null) {
-            Path photoPath = Paths.get(post.getPhoto().getPath());
+        if (post.getPostPhoto() != null && post.getPostPhoto().getPath() != null) {
+            Path photoPath = Paths.get(post.getPostPhoto().getPath());
             try {
                 if (Files.exists(photoPath)) {
                     Files.delete(photoPath);
-                    postPhotoService.deletePostPhoto(post.getPhoto().getId());
+                    postPhotoService.deletePostPhoto(post.getPostPhoto().getId());
                 }
             } catch (IOException e) {
                 throw new RuntimeException("Failed to delete photo for post with ID: " + id, e);
