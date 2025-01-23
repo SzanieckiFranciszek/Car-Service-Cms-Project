@@ -75,6 +75,11 @@ public class SectionService {
             page.setId(sectionDto.pageId());
             section.setPage(page);
         }
+
+        if(sectionDto.showInMenu() != null){
+            section.setShowInMenu(sectionDto.showInMenu());
+        }
+        
         Section updatedSection = sectionRepository.save(section);
         return convertToDto(updatedSection);
     }
