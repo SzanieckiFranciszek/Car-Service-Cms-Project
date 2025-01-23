@@ -1,0 +1,5 @@
+- brak jsonow w tel 
+- godziny otwarcia to tez json
+- brak galerii
+- brak mail
+- czemu jest child w sekcjach, mielismy nie robic

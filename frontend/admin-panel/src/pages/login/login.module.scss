@@ -1,0 +1,41 @@
+@use '../../colors' as c;
+
+.login {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginBox {
+    background-color: c.$white;
+    width: 25em;
+}
+
+.loginBoxTop {
+    background-color: c.$dark;
+    height: 2em;
+}
+
+.loginBoxContent {
+    padding: 2em;
+}
+
+.loginBoxForm {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+}
+
+.loginBoxFormInputWapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.inputAlert {
+    border-top: 5px solid rgba(255,0,0,0.6);
+    background-color: rgba(255,0,0,0.3);
+    padding: 0.5em;
+}
