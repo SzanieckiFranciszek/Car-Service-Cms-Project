@@ -38,9 +38,30 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/auth/**",  "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
-                                "/swagger-ui.html").permitAll()
-//                        .anyRequest().authenticated()
-                        .anyRequest().permitAll()
+                                "/swagger-ui.html",
+                                "/api/contact-information",
+                                "/api/contact-information/{id}",
+                                "/api/contact-information/phone",
+                                "/api/contact-information/email",
+                                "/api/contact-information/description/{description}",
+                                "/api/homepage",
+                                "/api/opening-hours",
+                                "/api/opening-hours/{id}",
+                                "/api/photos",
+                                "/api/photos/{id}",
+                                "/api/photos/download/{id}",
+                                "/api/photos/homepage",
+                                "/api/posts",
+                                "/api/posts/basic/{id}",
+                                "/api/posts/{id}",
+                                "/api/section",
+                                "/api/section/{id}",
+                                "/api/users",
+                                "/api/users/me",
+                                "/api/users/{id}"
+                                ).permitAll()
+                        .anyRequest().authenticated()
+//                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
