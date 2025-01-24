@@ -1,0 +1,143 @@
+@use '../colors' as c;
+@use '../variables' as v;
+
+.navButton {
+    text-decoration: none;
+    color: #000;
+    padding: 1em;
+
+}
+
+.navButton:hover {
+    color: c.$nav-button-active;
+}
+
+// .navButton:active {
+//     text-decoration: none;
+// }
+
+.active {
+    color: c.$nav-button-active;
+}
+
+
+.main {
+    display: flex;
+    flex-direction: row;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 0 1em;
+
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    // display: flex;
+    // align-items: center;
+    // gap: 2em;
+    padding: 2em 0;
+    flex: 1;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-right: 2em;
+}
+
+
+
+.userInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+}
+
+.navButtonContainer {
+    position: relative;
+  }
+  
+  .dropdown {
+    position: absolute;
+    // top: 100%;
+    top: calc(100% + 0.5em);
+
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: c.$background;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: none;
+  }
+  
+  .navButtonContainer:hover .dropdown {
+    display: block;
+  }
+  
+  .dropdownItem {
+    padding: 8px 16px;
+    display: block;
+    color: black;
+    text-decoration: none;
+  }
+  
+.registerHeader {
+  margin-bottom: 1em;
+}
+
+  .dropdownItem:hover {
+    background-color: rgba(0,0,0,0.1);
+  }
+  
+.redirect {
+  margin-top: 2em;
+  border-top: 1px #000 solid;
+  padding-top: 1em;
+
+  button {
+    margin-top: 1em;
+  }
+}
+
+  
+.login {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginBox {
+  background-color: c.$white;
+  width: 25em;
+}
+
+.loginBoxTop {
+  background-color: c.$dark;
+  height: 2em;
+}
+
+.loginBoxContent {
+  padding: 2em;
+  width: 30em;
+}
+
+.loginBoxForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+}
+
+.loginBoxFormInputWapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.inputAlert {
+  border-top: 5px solid rgba(255,0,0,0.6);
+  background-color: rgba(255,0,0,0.3);
+  padding: 0.5em;
+}

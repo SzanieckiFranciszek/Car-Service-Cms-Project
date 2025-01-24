@@ -1,0 +1,19 @@
+@use '../colors' as c;
+
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: c.$footer;
+    justify-content: space-around;
+    padding: 3em;
+    // align-self: flex-end;
+}
+
+.dataWrapper {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    
+}
