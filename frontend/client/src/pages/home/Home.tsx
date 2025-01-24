@@ -5,6 +5,7 @@ import CustomSections from "../custom/CustomSection";
 import { useEffect, useState } from "react";
 import Modal from "../../components/modal";
 import { User, useUserContext } from "../../contexts/UserContext";
+import Posts from "./Posts";
 
 interface NewOpinionModalProps {
   isOpen: boolean;
@@ -183,6 +184,7 @@ const Home = (props: HomeProps) => {
     <div className={styles.main}>
       <div className={styles.banner} style={{backgroundImage: `url(${props.imageURL})`}}></div>
       <CustomSections data={props.pageData.section}/>
+      <Posts/>
       <Opinions/>
     </div>
   );

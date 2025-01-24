@@ -562,8 +562,12 @@ export const getAllPosts = async () => {
         "Content-Type": "application/json",
       },
     });
+    const postsSortedByDate = response.data.sort((a: Post, b: Post) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    })
+  
+      return postsSortedByDate as Post[];
 
-    return response.data as Post[];
   } catch (error) {
     console.error("There has been a problem with request:", error);
   }
