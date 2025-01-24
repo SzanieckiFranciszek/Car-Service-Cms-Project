@@ -482,7 +482,11 @@ export const getAllOpinions = async () => {
       },
     });
 
-    return response.data as Opinion[];
+    const opinionsSortedByDate = response.data.sort((a: Opinion, b: Opinion) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    })
+  
+      return opinionsSortedByDate as Opinion[];
   } catch (error) {
     console.error("There has been a problem with your fetch operation:", error);
   }
