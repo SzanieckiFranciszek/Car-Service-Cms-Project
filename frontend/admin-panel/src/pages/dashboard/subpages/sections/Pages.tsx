@@ -210,7 +210,7 @@ const PageModal = (props: PageModalProps) => {
           </div>
           <div>
             {isRemovable && <button onClick={onDelete}>Usuń</button>}
-            {props.data.isVisible ? (
+            {!props.data.isHomepage && (props.data.isVisible ? (
               <button onClick={(e) => onVisibilityChange(e, false)}>
                 Ukryj
               </button>
@@ -218,7 +218,7 @@ const PageModal = (props: PageModalProps) => {
               <button onClick={(e) => onVisibilityChange(e, true)}>
                 Odkryj
               </button>
-            )}
+            ))}
           </div>
         </div>
 
