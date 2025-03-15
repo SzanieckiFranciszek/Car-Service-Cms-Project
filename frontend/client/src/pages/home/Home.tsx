@@ -183,7 +183,9 @@ const Home = (props: HomeProps) => {
   return (
     <div className={styles.main}>
       <div className={styles.banner} style={{backgroundImage: `url(${props.imageURL})`}}></div>
+      <div className={styles.sectionsWrapper}>
       <CustomSections data={props.pageData.section}/>
+      </div>
       <Posts/>
       <Opinions/>
     </div>

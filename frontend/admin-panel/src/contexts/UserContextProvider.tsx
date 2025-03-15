@@ -35,14 +35,17 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     if (tokenData) {
       const userData = await getCurrentUser(tokenData.token);
       if (userData) {
-        setUser(userData);
-        setToken(tokenData.token);
-        localStorage.setItem("token", tokenData.token);
-        console.log("777 token zapisany w localstorage", tokenData.token);
-        axios.defaults.headers.common["Authorization"] =
-          "Bearer " + tokenData.token;
-        setIsReady(true);
-        return true;
+        if(userData.userRole === "ADMIN") {
+
+          setUser(userData);
+          setToken(tokenData.token);
+          localStorage.setItem("token", tokenData.token);
+          console.log("777 token zapisany w localstorage", tokenData.token);
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer " + tokenData.token;
+          setIsReady(true);
+          return true;
+        }
       }
     }
     setIsReady(true);
