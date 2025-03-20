@@ -1,6 +1,7 @@
 package com.carservice.carservicecmsbackend.config;
 
 
+import com.carservice.carservicecmsbackend.model.UserRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -35,10 +36,7 @@ public class WebSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/api/auth/**",  "/swagger-ui/**",
-                                "/v3/api-docs/**",
-                                "/swagger-resources/**",
-                                "/swagger-ui.html",
+                        .requestMatchers("/api/auth/**",
                                 "/api/contact-information",
                                 "/api/contact-information/{id}",
                                 "/api/contact-information/phone",
@@ -64,13 +62,15 @@ public class WebSecurityConfig {
                                 "/api/posts/basic/{id}",
                                 "/api/posts/{id}",
                                 "/api/section",
-                                "/api/section/{id}",
-                                "/api/users",
-                                "/api/users/me",
-                                "/api/users/{id}"
+                                "/api/section/{id}"
                                 ).permitAll()
+                                .requestMatchers("/swagger-ui/**","/v3/api-docs/**",
+                                        "/swagger-resources/**",
+                                        "/swagger-ui.html","/api/users/me").hasAuthority(UserRole.DEV.name())
+                                .requestMatchers("/api/users","/api/users/{id}","/api/users/me").hasAuthority(UserRole.ADMIN.name())
+                                .requestMatchers("/api/users/me").hasAnyAuthority(UserRole.USER.name())
                         .anyRequest().authenticated()
-//                        .anyRequest().permitAll()
+//
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
