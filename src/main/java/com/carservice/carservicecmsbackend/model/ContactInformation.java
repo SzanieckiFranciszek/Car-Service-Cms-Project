@@ -20,6 +20,6 @@ public class ContactInformation {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "contact_value", nullable = false)
     private String value;
 }

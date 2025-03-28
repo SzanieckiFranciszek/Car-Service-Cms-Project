@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
 
@@ -41,11 +41,11 @@ public class User implements UserDetails {
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_role", columnDefinition = "ENUM('CUSTOMER', 'ADMIN')")
+    @Column(name = "user_role")
     private UserRole userRole;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_status", columnDefinition = "ENUM('VERIFIED', 'UNVERIFIED', 'BLOCKED', 'BANNED')")
+    @Column(name = "user_status")
     private UserStatus userStatus;
 
     @CreationTimestamp
