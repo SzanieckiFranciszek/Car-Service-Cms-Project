@@ -4,7 +4,7 @@ services:
 
   car-service-db:
     image: mysql:8.0
-    container_name: mysql-db
+    container_name: car-service-db
     environment:
       MYSQL_ROOT_PASSWORD: K8r7!xLp9@Vd
       MYSQL_DATABASE: carservicedb

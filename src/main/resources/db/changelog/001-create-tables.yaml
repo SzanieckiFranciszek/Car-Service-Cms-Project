@@ -1,0 +1,120 @@
+
+databaseChangeLog:
+  - changeSet:
+      id: 001
+      author: franciszek
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true}}
+              - column: {name: created_at, type: DATETIME(6)}
+              - column: {name: email, type: VARCHAR(100)}
+              - column: {name: first_name, type: VARCHAR(20)}
+              - column: {name: last_name, type: VARCHAR(20)}
+              - column: {name: password, type: VARCHAR(255)}
+              - column: {name: phone_number, type: VARCHAR(12)}
+              - column: {name: updated_at, type: DATETIME(6)}
+              - column: {name: user_role, type: "ENUM('USER','ADMIN','DEV')"}
+              - column: {name: user_status, type: "ENUM('VERIFIED','UNVERIFIED','BLOCKED','BANNED')"}
+
+        - createTable:
+            tableName: contact_info
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true}}
+              - column: {name: description, type: VARCHAR(255)}
+              - column: {name: type, type: VARCHAR(255)}
+              - column: {name: value, type: VARCHAR(255)}
+
+        - createTable:
+            tableName: homepage
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true}}
+              - column: {name: value, type: JSON}
+
+        - createTable:
+            tableName: opening_hours
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true}}
+              - column: {name: day_from, type: VARCHAR(255)}
+              - column: {name: day_to, type: VARCHAR(255)}
+              - column: {name: time_from, type: VARCHAR(255)}
+              - column: {name: time_to, type: VARCHAR(255)}
+
+        - createTable:
+            tableName: opinion
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true}}
+              - column: {name: content, type: TEXT}
+              - column: {name: created_at, type: DATETIME(6)}
+              - column: {name: user_id, type: BIGINT}
+
+        - addForeignKeyConstraint:
+            baseTableName: opinion
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_opinion_user
+
+        - createTable:
+            tableName: pages
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true}}
+              - column: {name: is_gallery, type: BIT}
+              - column: {name: is_homepage, type: BIT}
+              - column: {name: is_removable, type: BIT}
+              - column: {name: is_visible, type: BIT}
+              - column: {name: name, type: VARCHAR(255)}
+              - column: {name: order_index, type: BIGINT}
+
+        - createTable:
+            tableName: photos
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true}}
+              - column: {name: created_at, type: DATETIME(6)}
+              - column: {name: is_home_page_photo, type: BIT}
+              - column: {name: is_main_photo, type: BIT}
+              - column: {name: order_index, type: INT}
+              - column: {name: path, type: VARCHAR(255)}
+
+        - createTable:
+            tableName: posts
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true}}
+              - column: {name: author, type: VARCHAR(255)}
+              - column: {name: content, type: TEXT}
+              - column: {name: created_at, type: DATETIME(6)}
+              - column: {name: title, type: VARCHAR(255)}
+              - column: {name: post_photo_id, type: BIGINT}
+
+        - addForeignKeyConstraint:
+            baseTableName: posts
+            baseColumnNames: post_photo_id
+            referencedTableName: photos
+            referencedColumnNames: id
+            constraintName: fk_posts_photo
+
+        - createTable:
+            tableName: posts_photos
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true}}
+              - column: {name: created_at, type: DATETIME(6)}
+              - column: {name: path, type: VARCHAR(255)}
+
+        - createTable:
+            tableName: sections
+            columns:
+              - column: {name: id, type: BIGINT, autoIncrement: true, constraints: {primaryKey: true}}
+              - column: {name: content, type: TEXT}
+              - column: {name: is_visible, type: BIT}
+              - column: {name: order_index, type: BIGINT}
+              - column: {name: show_in_menu, type: BIT}
+              - column: {name: title, type: VARCHAR(255)}
+              - column: {name: pages_id, type: BIGINT}
+
+        - addForeignKeyConstraint:
+            baseTableName: sections
+            baseColumnNames: pages_id
+            referencedTableName: pages
+            referencedColumnNames: id
+            constraintName: fk_sections_page
