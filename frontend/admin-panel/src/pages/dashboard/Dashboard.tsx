@@ -3,32 +3,42 @@ import Header from "../../components/header";
 import Menu from "../../components/menu";
 import styles from "./dashboard.module.scss";
 import { useUserContext } from "../../contexts/UserContext";
-import axios from "axios";
+// import axios from "axios";
+import { useAxiosInterceptorsLogout } from "@shared/api/apiClient";
 
-const useAxiosInterceptorsLogout = () => {
-  const { logout } = useUserContext();
-  const navigate = useNavigate();
+// const useAxiosInterceptorsLogout = () => {
+//   const { logout } = useUserContext();
+//   const navigate = useNavigate();
 
-  axios.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-      const originalRequest = error.config;
+//   axios.interceptors.response.use(
+//     (response) => response,
+//     async (error) => {
+//       const originalRequest = error.config;
 
-      if (
-        (error.response.status === 403 || error.response.status === 401) &&
-        !originalRequest._retry
-      ) {
-        logout();
-        navigate("/login");
-      }
+//       if (
+//         (error.response.status === 403 || error.response.status === 401) &&
+//         !originalRequest._retry
+//       ) {
+//         logout();
+//         navigate("/login");
+//       }
 
-      return Promise.reject(error);
-    }
-  );
-};
+//       return Promise.reject(error);
+//     }
+//   );
+// };
+
 
 const Dashboard = () => {
-  useAxiosInterceptorsLogout();
+  const { logout } = useUserContext();
+  const navigate = useNavigate()
+
+  const autoLogout = () => {
+    logout();
+    navigate("/login");
+  }
+
+  useAxiosInterceptorsLogout(autoLogout)
 
   return (
     <div className={styles.dashboard}>

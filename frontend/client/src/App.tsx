@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from './app.module.scss';
-
+import { PageService, ImagesService } from "@shared/api/services";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,12 +8,14 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import { getAllPhotos, getAllVisiblePagesWithSections, getHomepageImage, Page, Photo } from "./apiService";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Home from "./pages/home/Home";
 import CustomPage from "./pages/custom/CustomPage";
 import Gallery from "./pages/gallery/Gallery";
+import { Page, Photo } from "@shared/types";
+import { useUserContext } from "./contexts/UserContext";
+import { useAxiosInterceptorsLogout } from "@shared/api/apiClient";
 
 
 
@@ -22,6 +24,9 @@ interface DashboardProps {
 }
 
 const Dashboard = ({data}: DashboardProps) => {
+  const { logout } = useUserContext();
+
+  useAxiosInterceptorsLogout(logout)
 
   return (
     <div className={styles.main}>
@@ -53,14 +58,14 @@ function App() {
 
   useEffect(() => {
     const getPages = async () => {
-      const result = await getAllVisiblePagesWithSections()
+      const result = await PageService.getAllVisiblePagesWithSections()
       if(result) {
         setPages(result)
       }
     }
 
     const fetchImage = async () => {
-      const result = await getHomepageImage();
+      const result = await ImagesService.getHomepageImage();
       if (result) {
         const url = URL.createObjectURL(result);
         setImageURL(url);
@@ -68,7 +73,7 @@ function App() {
     };
 
     const fetchAllPhotos = async () => {
-      const result = await getAllPhotos();
+      const result = await ImagesService.getAllPhotos();
       if (result) {
         setPhotosToDisplay(result);
       }

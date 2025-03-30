@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import Modal from "../../../../components/modal";
 import styles from "./pages.module.scss";
-import {
-  changePageOrder,
-  createNewPage,
-  deletePage,
-  getAllPagesWithSections,
-  Page,
-  updatePage,
-} from "../../../../apiService";
 import Sections from "./Sections";
 import { useUserContext } from "../../../../contexts/UserContext";
+import { Page } from "@shared/types";
+import { PageService } from "@shared/api/services";
 
 const findHighestOrderIndex = (array: Page[]) => {
   if (array.length === 0) {
@@ -159,7 +153,7 @@ const PageModal = (props: PageModalProps) => {
   ) => {
     event.preventDefault();
     if (validateForm()) {
-      const result = await updatePage(
+      const result = await PageService.updatePage(
         props.data.id,
         name,
         props.data.isVisible
@@ -178,7 +172,7 @@ const PageModal = (props: PageModalProps) => {
   ) => {
     event.preventDefault();
 
-    await updatePage(props.data.id, name, isVisible);
+    await PageService.updatePage(props.data.id, name, isVisible);
     await props.onUpdatePage();
   };
 
@@ -306,7 +300,7 @@ const Pages = () => {
   const [selectedPage, setSelectedPage] = useState<Page | null>(null);
 
   const fetchData = async () => {
-    const response = await getAllPagesWithSections();
+    const response = await PageService.getAllPagesWithSections();
     if (response) {
       setPagesData(response);
       if (selectedPage) {
@@ -327,13 +321,13 @@ const Pages = () => {
   const onCreateNewPage = async (name: string) => {
     const lastOrderIndex = findHighestOrderIndex(pagesData);
     const newOrderIndex = lastOrderIndex + 1;
-    await createNewPage(name, newOrderIndex);
+    await PageService.createNewPage(name, newOrderIndex);
     await fetchData();
     setNewPageModalOpen(false);
   };
 
   const onDeletePage = async (id: string) => {
-    const result = await deletePage(id);
+    const result = await PageService.deletePage(id);
 
     if (result && (result.status === 200 || result.status === 204)) {
       setSelectedPage(null);
@@ -354,7 +348,7 @@ const Pages = () => {
   };
 
   const onOrderChange = async (id: string, newOrder: number) => {
-    await changePageOrder(id, newOrder);
+    await PageService.changePageOrder(id, newOrder);
     await fetchData();
   };
 

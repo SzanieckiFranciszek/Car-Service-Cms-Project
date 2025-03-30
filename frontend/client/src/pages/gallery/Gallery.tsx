@@ -1,9 +1,9 @@
 
 import styles from "./gallery.module.scss";
-import { Page, Photo } from "../../apiService";
 import CustomSections from "../custom/CustomSection";
 import { useState } from "react";
 import ReactModal from "react-modal";
+import { Page, Photo } from "@shared/types";
 
 
 

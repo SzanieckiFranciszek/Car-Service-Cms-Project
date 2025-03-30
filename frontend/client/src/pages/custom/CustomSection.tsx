@@ -1,4 +1,4 @@
-import { Section } from "../../apiService";
+import { Section } from "@shared/types";
 import styles from "./custom.module.scss";
 
 interface CustomSectionProps {

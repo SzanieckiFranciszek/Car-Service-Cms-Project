@@ -2,9 +2,9 @@ import styles from "./header.module.scss";
 import { useUserContext } from "../contexts/UserContext";
 import { NavLink } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link'
-import { Page } from "../apiService";
 import { useState } from "react";
 import Modal from "./modal";
+import { Page } from "@shared/types";
 
 interface NavButtonProps {
   page: Page

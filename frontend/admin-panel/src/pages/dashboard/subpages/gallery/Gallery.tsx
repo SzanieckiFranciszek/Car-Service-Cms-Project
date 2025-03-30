@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./gallery.module.scss";
-import {
-  deletePhoto,
-  getAllPhotos,
-  Photo,
-  uploadPhotos,
-} from "../../../../apiService";
+import { ImagesService } from "@shared/api/services";
+import { Photo } from "@shared/types";
 
 interface Errors {
   [key: string]: string;
@@ -23,7 +19,7 @@ const Gallery = () => {
   }, []);
 
   const fetchAllPhotos = async () => {
-    const result = await getAllPhotos();
+    const result = await ImagesService.getAllPhotos();
     if (result) {
       setPhotosToDisplay(result);
     }
@@ -37,6 +33,16 @@ const Gallery = () => {
       formIsValid = false;
       errors["file"] = "Dodaj przynajmniej jeden plik.";
     }
+    else {
+      const validTypes = ["image/png", "image/jpeg"];
+      for (let i = 0; i < photos.length; i++) {
+        if (!validTypes.includes(photos[i].type)) {
+          formIsValid = false;
+          errors["file"] = "Dozwolone formaty plików: PNG, JPG.";
+          break;
+        }
+      }
+    }  
 
     setErrors(errors);
     return formIsValid;
@@ -48,7 +54,7 @@ const Gallery = () => {
     e.preventDefault();
     if (validateForm() && photos) {
       setErrors({});
-      await uploadPhotos(photos);
+      await ImagesService.uploadPhotos(photos);
       await fetchAllPhotos();
       setPhotos(null);
       if (fileInputRef.current) {
@@ -62,7 +68,7 @@ const Gallery = () => {
     id: string
   ) => {
     e.preventDefault();
-    await deletePhoto(id);
+    await ImagesService.deletePhoto(id);
     await fetchAllPhotos();
   };
 

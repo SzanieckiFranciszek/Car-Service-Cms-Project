@@ -45,6 +45,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 };
 
 function App() {
+
   return (
     <Router>
       <Routes>

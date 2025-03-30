@@ -1,8 +1,9 @@
 import styles from "./posts.module.scss";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAllPosts, Post } from "../../apiService";
 import Modal from "../../components/modal";
+import { Post } from "@shared/types";
+import { PostsService } from "@shared/api/services";
 
 
 
@@ -89,7 +90,7 @@ const Posts = () => {
   }, []);
 
   const fetchAllPosts = async () => {
-    const result = await getAllPosts();
+    const result = await PostsService.getAllPosts();
     if (result) {
       setPosts(result);
     }

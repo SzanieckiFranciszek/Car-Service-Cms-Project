@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./opinions.module.scss";
-import { deleteOpinion, getAllOpinions, Opinion } from "../../../../apiService";
+import { Opinion } from "@shared/types";
+import { OpinionsService } from "@shared/api/services";
 
 interface OpinionElementProps {
   data: Opinion;
@@ -35,14 +36,14 @@ const Opinions = () => {
   }, []);
 
   const onGetAllOpinions = async () => {
-    const data = await getAllOpinions();
+    const data = await OpinionsService.getAllOpinions();
     if (data) {
       setOpinions(data);
     }
   };
 
   const onDeleteOpinion = async (id: number) => {
-    await deleteOpinion(id);
+    await OpinionsService.deleteOpinion(id);
     await onGetAllOpinions();
   };
 

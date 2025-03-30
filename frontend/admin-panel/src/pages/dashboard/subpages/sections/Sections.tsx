@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import Modal from "../../../../components/modal";
 import styles from "./pages.module.scss";
-import {
-  changeSectionOrder,
-  createNewSection,
-  deleteSection,
-  Page,
-  Section,
-  updateSection,
-} from "../../../../apiService";
+import { Section, Page } from "@shared/types";
+import { PageService } from "@shared/api/services";
 
 const findHighestOrderIndex = (array: Section[]) => {
   if (array.length === 0) {
@@ -164,7 +158,7 @@ const SectionModal = (props: SectionModalProps) => {
   ) => {
     event.preventDefault();
     if (validateForm()) {
-      const result = await updateSection(
+      const result = await PageService.updateSection(
         props.data.id,
         title,
         props.data.isVisible,
@@ -185,7 +179,7 @@ const SectionModal = (props: SectionModalProps) => {
   ) => {
     event.preventDefault();
 
-    await updateSection(
+    await PageService.updateSection(
       props.data.id,
       props.data.title,
       isVisible,
@@ -397,7 +391,7 @@ const Sections = (props: SectionsProps) => {
   ) => {
     const lastOrderIndex = findHighestOrderIndex(sectionsData);
     const newOrderIndex = lastOrderIndex + 1;
-    await createNewSection(
+    await PageService.createNewSection(
       title,
       newOrderIndex,
       content,
@@ -409,7 +403,7 @@ const Sections = (props: SectionsProps) => {
   };
 
   const onDeleteSection = async (id: string) => {
-    const result = await deleteSection(id);
+    const result = await PageService.deleteSection(id);
 
     if (result && (result.status === 200 || result.status === 204)) {
       setSelectedSection(null);
@@ -430,7 +424,7 @@ const Sections = (props: SectionsProps) => {
   };
 
   const onOrderChange = async (id: string, newOrder: number) => {
-    await changeSectionOrder(id, newOrder);
+    await PageService.changeSectionOrder(id, newOrder);
     await props.onUpdatePage();
   };
 

@@ -1,7 +1,8 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { User, UserContext } from "./UserContext";
-import { getCurrentUser, getToken, signup } from "../apiService";
-import axios from "axios";
+import { UserContext } from "./UserContext";
+import { UserService } from "@shared/api/services";
+// import axios from "axios";
+import { User } from "@shared/types";
 
 interface UserProviderProps {
   children: ReactNode;
@@ -16,12 +17,12 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const authOnAppStart = async () => {
       const tokenFromLocalStorage = localStorage.getItem("token");
       if (tokenFromLocalStorage) {
-        const userData = await getCurrentUser(tokenFromLocalStorage);
+        const userData = await UserService.getCurrentUser(tokenFromLocalStorage);
         if (userData) {
           setUser(userData);
           setToken(tokenFromLocalStorage);
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer " + tokenFromLocalStorage;
+          // axios.defaults.headers.common["Authorization"] =
+          //   "Bearer " + tokenFromLocalStorage;
         }
       }
       setIsReady(true);
@@ -31,16 +32,16 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   }, []);
 
   const login = async (email: string, password: string) => {
-    const tokenData = await getToken(email, password);
+    const tokenData = await UserService.getToken(email, password);
     if (tokenData) {
-      const userData = await getCurrentUser(tokenData.token);
+      const userData = await UserService.getCurrentUser(tokenData.token);
       if (userData) {
         setUser(userData);
         setToken(tokenData.token);
         localStorage.setItem("token", tokenData.token);
 
-        axios.defaults.headers.common["Authorization"] =
-          "Bearer " + tokenData.token;
+        // axios.defaults.headers.common["Authorization"] =
+        //   "Bearer " + tokenData.token;
         setIsReady(true);
         return true;
       }
@@ -50,7 +51,7 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   };
 
   const register = async (email: string, password: string, firstName: string, lastName: string) => {
-    const response = await signup(email, password, firstName, lastName)
+    const response = await UserService.signup(email, password, firstName, lastName)
     if(response?.status === 200) {
       login(email, password)
       return true;
