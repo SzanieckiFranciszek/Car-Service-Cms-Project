@@ -17,7 +17,7 @@ public class HomePage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "homepage_value", columnDefinition = "JSON", nullable = false)
+    @Column(columnDefinition = "JSON", nullable = false)
     @Convert(converter = JpaConverterJson.class)
     private Map<String, Object> value;
 }

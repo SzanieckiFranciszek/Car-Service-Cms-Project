@@ -118,7 +118,7 @@ databaseChangeLog:
               - column: {name: id, valueNumeric: 1}
               - column: {name: is_gallery, valueBoolean: false}
               - column: {name: is_homepage, valueBoolean: true}
-              - column: {name: is_removable, valueBoolean: true}
+              - column: {name: is_removable, valueBoolean: false}
               - column: {name: is_visible, valueBoolean: true}
               - column: {name: name, value: "Strona główna"}
               - column: {name: order_index, valueNumeric: 1}
@@ -126,6 +126,16 @@ databaseChangeLog:
             tableName: pages
             columns:
               - column: {name: id, valueNumeric: 2}
+              - column: {name: is_gallery, valueBoolean: true}
+              - column: {name: is_homepage, valueBoolean: false}
+              - column: {name: is_removable, valueBoolean: false}
+              - column: {name: is_visible, valueBoolean: true}
+              - column: {name: name, value: "Galeria"}
+              - column: {name: order_index, valueNumeric: 2}
+        - insert:
+            tableName: pages
+            columns:
+              - column: {name: id, valueNumeric: 3}
               - column: {name: is_gallery, valueBoolean: false}
               - column: {name: is_homepage, valueBoolean: false}
               - column: {name: is_removable, valueBoolean: true}
@@ -135,7 +145,7 @@ databaseChangeLog:
         - insert:
             tableName: pages
             columns:
-              - column: {name: id, valueNumeric: 3}
+              - column: {name: id, valueNumeric: 4}
               - column: {name: is_gallery, valueBoolean: false}
               - column: {name: is_homepage, valueBoolean: false}
               - column: {name: is_removable, valueBoolean: true}
