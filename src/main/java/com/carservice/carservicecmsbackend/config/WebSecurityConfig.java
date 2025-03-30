@@ -48,7 +48,9 @@ public class WebSecurityConfig {
                                 "/api/posts",
                                 "/api/photos/homepage",
                                 "/api/photos",
-                                "/api/users/me"
+                                "/api/photos/{id}",
+                                "/api/users/me",
+                                "/images/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.POST,
                                 "/api/auth/signup",
@@ -81,6 +83,7 @@ public class WebSecurityConfig {
                                 "/api/contact-information/update/{id}",
                                 "/api/photos/replace/homepage",
                                 "/api/photos/replace/homepage/{id}",
+                                "/api/photos/upload",
                                 "/api/posts/update",
                                 "/api/posts/update/{id}",
                                 "/api/pages/id/neworder",

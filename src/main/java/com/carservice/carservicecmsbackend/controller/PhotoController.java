@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/api/photos")
 public class PhotoController {
     private final PhotoService photoService;
-    private static final String UPLOAD_DIR = "src/main/resources/images";
+    private static final String UPLOAD_DIR = "/app/images";
 
     public PhotoController(PhotoService photoService) {
         this.photoService = photoService;

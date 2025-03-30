@@ -152,86 +152,86 @@ databaseChangeLog:
               - column: {name: is_visible, valueBoolean: true}
               - column: {name: name, value: "Kontakt"}
               - column: {name: order_index, valueNumeric: 3}
-        - insert:
-            tableName: photos
-            columns:
-              - column: {name: id, valueNumeric: 1}
-              - column: {name: created_at, valueDate: "2025-03-27T08:58:14"}
-              - column: {name: is_home_page_photo, valueBoolean: false}
-              - column: {name: is_main_photo, valueBoolean: false}
-              - column: {name: order_index, valueNumeric: 1}
-              - column: {name: path, value: "src\\main\\resources\\images\\photo1.jpg"}
-
-        - insert:
-            tableName: photos
-            columns:
-              - column: {name: id, valueNumeric: 2}
-              - column: {name: created_at, valueDate: "2025-03-26T08:58:14"}
-              - column: {name: is_home_page_photo, valueBoolean: false}
-              - column: {name: is_main_photo, valueBoolean: false}
-              - column: {name: order_index, valueNumeric: 2}
-              - column: {name: path, value: "src\\main\\resources\\images\\photo2.png"}
-        - insert:
-            tableName: photos
-            columns:
-              - column: {name: id, valueNumeric: 3}
-              - column: {name: created_at, valueDate: "2025-03-25T08:58:14"}
-              - column: {name: is_home_page_photo, valueBoolean: false}
-              - column: {name: is_main_photo, valueBoolean: false}
-              - column: {name: order_index, valueNumeric: 3}
-              - column: {name: path, value: "src\\main\\resources\\images\\photo3.jpg"}
-        - insert:
-            tableName: photos
-            columns:
-              - column: {name: id, valueNumeric: 4}
-              - column: {name: created_at, valueDate: "2025-03-24T08:58:14"}
-              - column: {name: is_home_page_photo, valueBoolean: true}
-              - column: {name: is_main_photo, valueBoolean: true}
-              - column: {name: order_index, valueNumeric: 4}
-              - column: {name: path, value: "src\\main\\resources\\images\\photo4.jpg"}
-        - insert:
-            tableName: posts_photos
-            columns:
-              - column: {name: id, valueNumeric: 1}
-              - column: {name: created_at, valueDate: "2025-03-27T08:58:14"}
-              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
-
-        - insert:
-            tableName: posts_photos
-            columns:
-              - column: {name: id, valueNumeric: 2}
-              - column: {name: created_at, valueDate: "2025-03-26T08:58:14"}
-              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
-        - insert:
-            tableName: posts_photos
-            columns:
-              - column: {name: id, valueNumeric: 3}
-              - column: {name: created_at, valueDate: "2025-03-25T08:58:14"}
-              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
-        - insert:
-            tableName: posts_photos
-            columns:
-              - column: {name: id, valueNumeric: 4}
-              - column: {name: created_at, valueDate: "2025-03-24T08:58:14"}
-              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
-        - insert:
-            tableName: posts
-            columns:
-              - column: { name: id, valueNumeric: 1 }
-              - column: { name: author, value: "Franciszek" }
-              - column: { name: content, value: "Zawartość posta 1" }
-              - column: { name: created_at, valueDate: "2025-03-27T08:55:21" }
-              - column: { name: title, value: "Nowy olej Vw - dostępny" }
-              - column: { name: post_photo_id, valueNumeric: 1}
-        - insert:
-            tableName: posts
-            columns:
-              - column: { name: id, valueNumeric: 2 }
-              - column: { name: author, value: "Franciszek" }
-              - column: { name: content, value: "Zawartość posta 2" }
-              - column: { name: created_at, valueDate: "2025-03-26T08:55:21" }
-              - column: { name: title, value: "Czy oleje long-life są dobre? " }
-              - column: { name: post_photo_id, valueNumeric: 2}
+#        - insert:
+#            tableName: photos
+#            columns:
+#              - column: {name: id, valueNumeric: 1}
+#              - column: {name: created_at, valueDate: "2025-03-27T08:58:14"}
+#              - column: {name: is_home_page_photo, valueBoolean: false}
+#              - column: {name: is_main_photo, valueBoolean: false}
+#              - column: {name: order_index, valueNumeric: 1}
+#              - column: {name: path, value: "src\\main\\resources\\images\\photo1.jpg"}
+#
+#        - insert:
+#            tableName: photos
+#            columns:
+#              - column: {name: id, valueNumeric: 2}
+#              - column: {name: created_at, valueDate: "2025-03-26T08:58:14"}
+#              - column: {name: is_home_page_photo, valueBoolean: false}
+#              - column: {name: is_main_photo, valueBoolean: false}
+#              - column: {name: order_index, valueNumeric: 2}
+#              - column: {name: path, value: "src\\main\\resources\\images\\photo2.png"}
+#        - insert:
+#            tableName: photos
+#            columns:
+#              - column: {name: id, valueNumeric: 3}
+#              - column: {name: created_at, valueDate: "2025-03-25T08:58:14"}
+#              - column: {name: is_home_page_photo, valueBoolean: false}
+#              - column: {name: is_main_photo, valueBoolean: false}
+#              - column: {name: order_index, valueNumeric: 3}
+#              - column: {name: path, value: "src\\main\\resources\\images\\photo3.jpg"}
+#        - insert:
+#            tableName: photos
+#            columns:
+#              - column: {name: id, valueNumeric: 4}
+#              - column: {name: created_at, valueDate: "2025-03-24T08:58:14"}
+#              - column: {name: is_home_page_photo, valueBoolean: true}
+#              - column: {name: is_main_photo, valueBoolean: true}
+#              - column: {name: order_index, valueNumeric: 4}
+#              - column: {name: path, value: "src\\main\\resources\\images\\photo4.jpg"}
+#        - insert:
+#            tableName: posts_photos
+#            columns:
+#              - column: {name: id, valueNumeric: 1}
+#              - column: {name: created_at, valueDate: "2025-03-27T08:58:14"}
+#              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
+#
+#        - insert:
+#            tableName: posts_photos
+#            columns:
+#              - column: {name: id, valueNumeric: 2}
+#              - column: {name: created_at, valueDate: "2025-03-26T08:58:14"}
+#              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
+#        - insert:
+#            tableName: posts_photos
+#            columns:
+#              - column: {name: id, valueNumeric: 3}
+#              - column: {name: created_at, valueDate: "2025-03-25T08:58:14"}
+#              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
+#        - insert:
+#            tableName: posts_photos
+#            columns:
+#              - column: {name: id, valueNumeric: 4}
+#              - column: {name: created_at, valueDate: "2025-03-24T08:58:14"}
+#              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
+#        - insert:
+#            tableName: posts
+#            columns:
+#              - column: { name: id, valueNumeric: 1 }
+#              - column: { name: author, value: "Franciszek" }
+#              - column: { name: content, value: "Zawartość posta 1" }
+#              - column: { name: created_at, valueDate: "2025-03-27T08:55:21" }
+#              - column: { name: title, value: "Nowy olej Vw - dostępny" }
+#              - column: { name: post_photo_id, valueNumeric: 1}
+#        - insert:
+#            tableName: posts
+#            columns:
+#              - column: { name: id, valueNumeric: 2 }
+#              - column: { name: author, value: "Franciszek" }
+#              - column: { name: content, value: "Zawartość posta 2" }
+#              - column: { name: created_at, valueDate: "2025-03-26T08:55:21" }
+#              - column: { name: title, value: "Czy oleje long-life są dobre? " }
+#              - column: { name: post_photo_id, valueNumeric: 2}
         - insert:
             tableName: sections
             columns:
