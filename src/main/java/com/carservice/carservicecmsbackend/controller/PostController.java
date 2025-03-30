@@ -25,7 +25,7 @@ import java.util.Objects;
 public class PostController {
     private final PostService postService;
     private final PostPhotoService postPhotoService;
-    private static final String UPLOAD_DIR = "src/main/resources/images/posts";
+    private static final String UPLOAD_DIR = "/app/images/posts";
 
     public PostController(PostService postService, PostPhotoService postPhotoService, ContactInformationService contactInformationService) {
         this.postService = postService;

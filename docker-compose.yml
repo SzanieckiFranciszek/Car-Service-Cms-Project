@@ -29,7 +29,9 @@ services:
       - car-service-db
     networks:
       - carservice-network
-
+    volumes:
+      - images-volume:/app/images
+      - images-volume:/app/images/posts
 
   car-service-frontend-admin-panel:
     build: ./frontend/admin-panel
@@ -61,6 +63,7 @@ services:
 
 volumes:
   db_data:
+  images-volume:
 
 networks:
   carservice-network:
