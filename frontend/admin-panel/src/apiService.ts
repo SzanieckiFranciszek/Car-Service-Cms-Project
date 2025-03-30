@@ -4,15 +4,15 @@ import { User } from "./contexts/UserContext";
 export const API_BASE_URL = "http://localhost:8080";
 
 export const ENDPOINTS = {
-  opinions: `/api/opinions`,
-  posts: `/api/posts`,
-  contactInfo: `/api/contact-information`,
-  openingHours: `/api/opening-hours`,
-  pages: `/api/pages`,
-  photos: `/api/photos`,
-  sections: `/api/section`,
-  auth: `/api/auth`,
-  users: `/api/users`,
+  opinions: `${API_BASE_URL}/api/opinions`,
+  posts: `${API_BASE_URL}/api/posts`,
+  contactInfo: `${API_BASE_URL}/api/contact-information`,
+  openingHours: `${API_BASE_URL}/api/opening-hours`,
+  pages: `${API_BASE_URL}/api/pages`,
+  photos: `${API_BASE_URL}/api/photos`,
+  sections: `${API_BASE_URL}/api/section`,
+  auth: `${API_BASE_URL}/api/auth`,
+  users: `${API_BASE_URL}/api/users`,
 };
 
 export interface Opinion {
