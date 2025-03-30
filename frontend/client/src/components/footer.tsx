@@ -1,6 +1,7 @@
+import { ContactInfo, OpenHours } from "@shared/types";
 import styles from "./footer.module.scss";
-import { ContactInfo, getAllContantInfo, getAllOpenHours, OpenHours } from "../apiService";
 import { useEffect, useState } from "react";
+import { ContactInfoService } from "@shared/api/services";
 
 
 
@@ -11,14 +12,14 @@ const Footer = () => {
 
     useEffect(() => {
         const fetchContactInfo = async () => {
-          const data = await getAllContantInfo();
+          const data = await ContactInfoService.getAllContantInfo();
           if (data) {
             setContactInfoData(data);
           }
         };
 
         const fetchAllOpenHoursData = async () => {
-            const data = await getAllOpenHours();
+            const data = await ContactInfoService.getAllOpenHours();
             if (data) {
               setOpenHoursData(data);
             }

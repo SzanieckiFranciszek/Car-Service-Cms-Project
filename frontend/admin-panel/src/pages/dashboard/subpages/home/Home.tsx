@@ -1,23 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./home.module.scss";
-import {
-  changeHomepageImage,
-  ContactInfo,
-  ContactInfoType,
-  createNewContactInfo,
-  createNewOpeningHours,
-  Days,
-  deleteContactInfo,
-  deleteOpeningHours,
-  getAllContantInfo,
-  getAllOpenHours,
-  getContactTypeTranslation,
-  getHomepageImage,
-  OpenHours,
-  updateContactInfo,
-  updateOpeningHours,
-  uploadHomepageImage,
-} from "../../../../apiService";
+import { ImagesService, ContactInfoService } from "@shared/api/services";
+import { ContactInfo, ContactInfoType, getContactTypeTranslation, OpenHours, Days } from "@shared/types";
 
 interface Errors {
   [key: string]: string;
@@ -39,6 +23,13 @@ const MainImage = () => {
       formIsValid = false;
       errors["file"] = "Dodaj plik.";
     }
+    else {
+      const validTypes = ["image/png", "image/jpeg"];
+      if (!validTypes.includes(fileToSend.type)) {
+        formIsValid = false;
+        errors["file"] = "Dodaj plik typu PNG lub JPG.";
+      }
+    }
 
     setErrors(errors);
     return formIsValid;
@@ -49,7 +40,7 @@ const MainImage = () => {
   }, []);
 
   const fetchImage = async () => {
-    const result = await getHomepageImage();
+    const result = await ImagesService.getHomepageImage();
     if (result) {
       const url = URL.createObjectURL(result);
       setImageURL(url);
@@ -63,11 +54,11 @@ const MainImage = () => {
     if (validateForm() && fileToSend) {
       setErrors({});
       if (imageURL) {
-        await changeHomepageImage(fileToSend);
+        await ImagesService.changeHomepageImage(fileToSend);
         const url = URL.createObjectURL(fileToSend);
         setImageURL(url);
       } else {
-        await uploadHomepageImage(fileToSend);
+        await ImagesService.uploadHomepageImage(fileToSend);
       }
       setFileToSend(undefined);
       if (fileInputRef.current) {
@@ -140,14 +131,14 @@ const ContactTable = () => {
   }, []);
 
   const getAllInfo = async () => {
-    const data = await getAllContantInfo();
+    const data = await ContactInfoService.getAllContantInfo();
     if (data) {
       setContactInfoData(data);
     }
   };
 
   const onDelete = async (id: string) => {
-    const result = await deleteContactInfo(id);
+    const result = await ContactInfoService.deleteContactInfo(id);
 
     if (result && (result.status === 200 || result.status === 204)) {
       setContactInfoData((prevData) =>
@@ -164,7 +155,7 @@ const ContactTable = () => {
     value: string
   ) => {
     if (validateForm(type, value, desc)) {
-      const result = await updateContactInfo(id, type, desc, value);
+      const result = await ContactInfoService.updateContactInfo(id, type, desc, value);
 
       if (result && (result.status === 200 || result.status === 204)) {
         setContactInfoData((prevData) =>
@@ -188,7 +179,7 @@ const ContactTable = () => {
     value: string
   ) => {
     if (validateForm(type, value, desc)) {
-      await createNewContactInfo(type, desc, value);
+      await ContactInfoService.createNewContactInfo(type, desc, value);
       await getAllInfo();
       return true;
     } else {
@@ -437,14 +428,14 @@ const OpenHoursTable = () => {
   }, []);
 
   const getAllOpenHoursData = async () => {
-    const data = await getAllOpenHours();
+    const data = await ContactInfoService.getAllOpenHours();
     if (data) {
       setOpenHoursData(data);
     }
   };
 
   const onDelete = async (id: string) => {
-    const result = await deleteOpeningHours(id);
+    const result = await ContactInfoService.deleteOpeningHours(id);
 
     if (result && (result.status === 200 || result.status === 204)) {
       setOpenHoursData((prevData) =>
@@ -462,7 +453,7 @@ const OpenHoursTable = () => {
     timeTo: string
   ) => {
     if (validateForm(dayfrom, dayTo, timeFrom, timeTo)) {
-      const result = await updateOpeningHours(
+      const result = await ContactInfoService.updateOpeningHours(
         id,
         dayfrom,
         dayTo,
@@ -493,7 +484,7 @@ const OpenHoursTable = () => {
     timeTo: string
   ) => {
     if (validateForm(dayfrom, dayTo, timeFrom, timeTo)) {
-      await createNewOpeningHours(dayfrom, dayTo, timeFrom, timeTo);
+      await ContactInfoService.createNewOpeningHours(dayfrom, dayTo, timeFrom, timeTo);
       await getAllOpenHoursData();
       return true;
     } else {

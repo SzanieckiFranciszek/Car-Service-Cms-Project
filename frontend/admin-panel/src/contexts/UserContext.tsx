@@ -1,12 +1,5 @@
+import { User } from "@shared/types";
 import { createContext, useContext } from "react";
-
-export interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  userRole: string
-}
 
 export interface UserContextType {
   user: User | null;

@@ -2,14 +2,9 @@ import styles from "./posts.module.scss";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Modal from "../../../../components/modal";
-import {
-  createPost,
-  deletePost,
-  getAllPosts,
-  Post,
-  updatePost,
-} from "../../../../apiService";
 import { useUserContext } from "../../../../contexts/UserContext";
+import { Post } from "@shared/types";
+import { PostsService } from "@shared/api/services";
 
 interface PostProps {
   openPostModal: (id: string) => void;
@@ -85,7 +80,7 @@ const NewPostModal = (props: NewPostModalProps) => {
   ) => {
     event.preventDefault();
     if (validateForm()) {
-      await createPost(postTitle, postContent, postImage);
+      await PostsService.createPost(postTitle, postContent, postImage);
       await props.onCreate();
       props.onClose();
     }
@@ -184,7 +179,7 @@ const PostModal = (props: PostModalProps) => {
     event.preventDefault();
     setIsEdit(false);
     if (validateForm()) {
-      const result = await updatePost(
+      const result = await PostsService.updatePost(
         props.data.id,
         postTitle,
         postContent,
@@ -200,7 +195,7 @@ const PostModal = (props: PostModalProps) => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
-    const result = await deletePost(props.data.id);
+    const result = await PostsService.deletePost(props.data.id);
     if (result && (result.status === 200 || result.status === 204)) {
       props.onDelete();
     }
@@ -294,7 +289,7 @@ const Posts = () => {
   }, []);
 
   const fetchAllPosts = async () => {
-    const result = await getAllPosts();
+    const result = await PostsService.getAllPosts();
     if (result) {
       setPosts(result);
     }

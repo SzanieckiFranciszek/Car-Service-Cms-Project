@@ -1,5 +1,5 @@
+import { Page } from "@shared/types";
 import styles from "./custom.module.scss";
-import { Page} from "../../apiService";
 import CustomSections from "./CustomSection";
 
 

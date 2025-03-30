@@ -1,11 +1,11 @@
-
 import styles from "./home.module.scss";
-import { createOpinion, deleteOpinion, getAllOpinions, Opinion, Page } from "../../apiService";
 import CustomSections from "../custom/CustomSection";
 import { useEffect, useState } from "react";
 import Modal from "../../components/modal";
-import { User, useUserContext } from "../../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 import Posts from "./Posts";
+import { Opinion, Page, User } from "@shared/types";
+import { OpinionsService } from "@shared/api/services";
 
 interface NewOpinionModalProps {
   isOpen: boolean;
@@ -47,7 +47,7 @@ const NewOpinionModal = (props: NewOpinionModalProps) => {
     if (validateForm()) {
       // await createPost(postTitle, postContent, postImage);
       // await props.onCreate();
-      await createOpinion(opinionContent, props.user.id)
+      await OpinionsService.createOpinion(opinionContent, props.user.id)
       await props.onCreateOpinion()
       props.onClose();
     }
@@ -119,14 +119,14 @@ const Opinions = () => {
   }, []);
 
   const onGetAllOpinions = async () => {
-    const data = await getAllOpinions();
+    const data = await OpinionsService.getAllOpinions();
     if (data) {
       setOpinions(data);
     }
   };
 
   const onDeleteOpinion = async (id: number) => {
-    const result = await deleteOpinion(id);
+    const result = await OpinionsService.deleteOpinion(id);
     if(result?.status === 204) {
       setOpinions((prevOpinions) => prevOpinions.filter(opinion => opinion.id !== id))
     }
