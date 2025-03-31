@@ -37,6 +37,16 @@ const Gallery = () => {
       formIsValid = false;
       errors["file"] = "Dodaj przynajmniej jeden plik.";
     }
+    else {
+      const validTypes = ["image/png", "image/jpeg"];
+      for (let i = 0; i < photos.length; i++) {
+        if (!validTypes.includes(photos[i].type)) {
+          formIsValid = false;
+          errors["file"] = "Dozwolone formaty plików: PNG, JPG.";
+          break;
+        }
+      }
+    }  
 
     setErrors(errors);
     return formIsValid;
@@ -78,6 +88,7 @@ const Gallery = () => {
         <div>
           <input
             multiple
+            accept=".png, .jpg"
             ref={fileInputRef}
             type="file"
             onChange={(e) => setPhotos(e.target.files)}

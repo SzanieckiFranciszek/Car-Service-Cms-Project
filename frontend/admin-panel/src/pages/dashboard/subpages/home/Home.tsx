@@ -39,6 +39,13 @@ const MainImage = () => {
       formIsValid = false;
       errors["file"] = "Dodaj plik.";
     }
+    else {
+      const validTypes = ["image/png", "image/jpeg"];
+      if (!validTypes.includes(fileToSend.type)) {
+        formIsValid = false;
+        errors["file"] = "Dodaj plik typu PNG lub JPG.";
+      }
+    }
 
     setErrors(errors);
     return formIsValid;
@@ -87,6 +94,7 @@ const MainImage = () => {
         <input
           ref={fileInputRef}
           type="file"
+          accept=".png, .jpg"
           onChange={(e) =>
             setFileToSend(e.target.files ? e.target.files[0] : undefined)
           }

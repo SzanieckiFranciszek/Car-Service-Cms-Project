@@ -76,6 +76,15 @@ const NewPostModal = (props: NewPostModalProps) => {
       errors["content"] = "Podaj treść.";
     }
 
+    if(postImage !== undefined) {
+
+      const validTypes = ["image/png", "image/jpeg"];
+      if (!validTypes.includes(postImage.type)) {
+        formIsValid = false;
+        errors["file"] = "Dodaj plik typu PNG lub JPG.";
+      }
+    }
+
     setErrors(errors);
     return formIsValid;
   };
@@ -102,6 +111,7 @@ const NewPostModal = (props: NewPostModalProps) => {
             <p>Zdjęcie (opcjonalne)</p>
             <input
               type="file"
+              accept=".png, .jpg"
               onChange={(e) =>
                 setPostImage(e.target.files ? e.target.files[0] : undefined)
               }
@@ -174,6 +184,15 @@ const PostModal = (props: PostModalProps) => {
       errors["content"] = "Podaj treść.";
     }
 
+    if(postImage !== undefined) {
+
+      const validTypes = ["image/png", "image/jpeg"];
+      if (!validTypes.includes(postImage.type)) {
+        formIsValid = false;
+        errors["file"] = "Dodaj plik typu PNG lub JPG.";
+      }
+    }
+
     setErrors(errors);
     return formIsValid;
   };
@@ -241,6 +260,7 @@ const PostModal = (props: PostModalProps) => {
               <input
                 disabled={!isEdit}
                 type="file"
+                accept=".png, .jpg"
                 onChange={(e) =>
                   setPostImage(e.target.files ? e.target.files[0] : undefined)
                 }
