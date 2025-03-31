@@ -40,7 +40,6 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
           setUser(userData);
           setToken(tokenData.token);
           localStorage.setItem("token", tokenData.token);
-          console.log("777 token zapisany w localstorage", tokenData.token);
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + tokenData.token;
           setIsReady(true);
