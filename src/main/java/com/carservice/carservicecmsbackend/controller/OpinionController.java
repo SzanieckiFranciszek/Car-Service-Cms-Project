@@ -21,7 +21,7 @@ public class OpinionController{
     }
 
     @GetMapping
-    public List<Opinion> getAllOpinions() {
+    public List<OpinionDto> getAllOpinions() {
         return opinionService.getAllOpinions();
     }
 

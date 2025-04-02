@@ -1,0 +1,98 @@
+@use '../../colors' as c;
+
+
+.main {
+    flex: 1;
+    padding: 2em;
+}
+
+.photosWrapper {
+    margin-top: 1em;
+    background-color: rgba(0,0,0,0.1);
+    padding: 1em;
+    // display: flex;
+    // justify-content: center;
+    
+}
+.photosGrid {
+    display: flex;
+    // flex-direction: column;
+    gap: 2em;
+    // justify-content: center;
+    // align-items: center;
+    flex-wrap: wrap;
+}
+
+.photoWrapper {
+    img {
+        height: 20em;
+        width: auto;
+        max-width: 30em;
+        cursor: pointer;
+
+        &:hover {
+            // transform: scale(1.1);
+            opacity: 0.8;
+        }
+    }
+
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 1;
+    flex-grow: 0;
+    max-width: min-content;
+    padding-bottom: 0.5em;
+    gap: 0.5em;
+
+    div {
+        display: flex;
+        justify-content: center;
+    }
+
+    // border: 1px c.$dark solid;
+}
+
+.modalButtonWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.modalPhotoContent {
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+}
+
+.modal {
+
+    img {
+        max-height: 90vh;
+        width: auto;
+    }
+    // position: absolute;
+    // top: 40px;
+    // left: 40px;
+    // right: 40px;
+    // bottom: 40px;
+    // overflow: auto;
+    // overflow-x: visible !important;
+    width: min-content;
+    max-width: 90%;
+    min-height: 20em;
+    // max-height: 90%;
+    height: min-content;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    // padding: 2em;
+    align-items: center;
+  }

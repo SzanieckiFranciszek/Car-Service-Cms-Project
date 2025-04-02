@@ -1,0 +1,124 @@
+@use '../../colors' as c;
+
+.main {
+    background-color: c.$background;
+    padding: 2em;
+    margin-bottom: 3em;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.postModalHeader {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.postModalButtonWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1em;
+}
+
+.postModalContent {
+    margin-top: 1em;
+}
+
+.postModalInputWrapper {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    textarea {
+        // resize: none;
+        // padding: 1em;
+        height: 20em;
+
+        &:disabled {
+            opacity: 1;
+            color: #000;
+        }
+    }
+
+    input {
+
+
+        &:disabled {
+            opacity: 1;
+            color: #000;
+        }
+    }
+}
+
+.postModalMain {
+    width: 50vw;
+}
+
+.inputError {
+    border: 2px solid rgba(255,0,0,0.6);
+}
+
+.inputAlert {
+    border-top: 5px solid rgba(255,0,0,0.6);
+    background-color: rgba(255,0,0,0.3);
+    padding: 0.5em;
+}
+
+.post {
+    display: grid;
+    grid-template-columns: 10em auto;
+    column-gap: 1em;
+    // display: flex;
+    // flex-direction: row;
+    // background-color: rgba(0,0,0,0.1);
+    // background-color: rgba(237, 241, 247,0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 1em;
+    // margin-bottom: 0.5em;
+
+    &:hover {
+        // background-color: rgba(0,0,0,0.2);
+    background-color: rgba(237, 241, 247,0.5);
+    cursor: pointer;
+    }
+}
+
+.postTitle {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.postContent {
+    margin-bottom: 0.5em;
+}
+
+.postImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        max-width: 10em;
+        height: auto;
+    }
+}
+
+.postModalImageWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+    gap: 1em;
+
+    img {
+        max-height: 30em;
+        width: auto;
+    }
+}

@@ -1,5 +1,6 @@
 package com.carservice.carservicecmsbackend.model;
 
+import com.carservice.carservicecmsbackend.dto.UserOpinionDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,5 +29,14 @@ public class Opinion {
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public UserOpinionDto getUserOpinionDto() {
+        return UserOpinionDto.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .build();
     }
 }

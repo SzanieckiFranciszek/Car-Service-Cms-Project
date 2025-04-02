@@ -5,6 +5,7 @@ import com.carservice.carservicecmsbackend.dto.UserDto;
 import com.carservice.carservicecmsbackend.exception.AppRuntimeException;
 import com.carservice.carservicecmsbackend.exception.ErrorCode;
 import com.carservice.carservicecmsbackend.model.User;
+import com.carservice.carservicecmsbackend.model.UserRole;
 import com.carservice.carservicecmsbackend.model.UserStatus;
 import com.carservice.carservicecmsbackend.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,14 +29,14 @@ public class UserService {
     }
 
     public User signUp(UserDto userDto) {
-        User user = new User();
-        user.setFirstName(userDto.firstName());
-        user.setLastName(userDto.lastName());
-        user.setEmail(userDto.email());
-        user.setPassword(passwordEncoder.encode(userDto.password()));
-        user.setPhoneNumber(userDto.phoneNumber());
-        user.setUserRole(userDto.userRole());
-        user.setUserStatus(UserStatus.VERIFIED);
+        User user = User.builder()
+                .firstName(userDto.firstName())
+                .lastName(userDto.lastName())
+                .email(userDto.email())
+                .password(passwordEncoder.encode(userDto.password()))
+                .phoneNumber(userDto.phoneNumber())
+                .userRole(UserRole.USER)
+                .userStatus(UserStatus.VERIFIED).build();
         return userRepository.save(user);
     }
 

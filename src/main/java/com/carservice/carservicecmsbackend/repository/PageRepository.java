@@ -8,7 +8,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PageRepository extends JpaRepository<Page,Long> {
+public interface PageRepository extends JpaRepository<Page, Long> {
     List<Page> findAllByIsVisibleTrueOrderByOrderIndexAsc();
+
     Optional<Page> findByName(String name);
+
+    Optional<Page> findByOrderIndex(Long orderIndex);
+
+    List<Page> findByOrderIndexGreaterThanEqual(Long orderIndex);
+
+    List<Page> findAllByOrderByOrderIndexAsc();
 }

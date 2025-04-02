@@ -1,0 +1,268 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002
+      author: franciszek
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: {name: id, valueNumeric: 1}
+              - column: {name: created_at, valueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: email, value: "jnowak@gmail.com"}
+              - column: {name: first_name, value: "Jan"}
+              - column: {name: last_name, value: "Nowak"}
+              - column: {name: password, value: "$2a$10$cO/oSPYlG2sH.NS99VKAee1JhKz9R2Q8tfuvBqtS2GCTXC6D2khyO"}
+              - column: {name: phone_number, value: "123456781"}
+              - column: {name: user_role, value: "USER"}
+              - column: {name: user_status, value: "VERIFIED"}
+        - insert:
+            tableName: users
+            columns:
+              - column: {name: id, valueNumeric: 2}
+              - column: {name: created_at, valueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: email, value: "rnowak2@gmail.com"}
+              - column: {name: first_name, value: "Romek"}
+              - column: {name: last_name, value: "Nowak"}
+              - column: {name: password, value: "$2a$10$Vk4cCBkbLZiBEriZiwrGy.ijg5SQwvK8ANUm9nIu9bWIywtcC8bIG"}
+              - column: {name: phone_number, value: "123456782"}
+              - column: {name: user_role, value: "ADMIN"}
+              - column: {name: user_status, value: "VERIFIED"}
+        - insert:
+            tableName: users
+            columns:
+              - column: {name: id, valueNumeric: 3}
+              - column: {name: created_at, valueComputed: "CURRENT_TIMESTAMP"}
+              - column: {name: email, value: "fnowak@gmail.com"}
+              - column: {name: first_name, value: "Franek"}
+              - column: {name: last_name, value: "Nowak"}
+              - column: {name: password, value: "$2a$10$LXGl/UpjJJ4xrk5.Z/7j6uKuPLMBpQ0145cZ7wYBHWtJHvdmyZ2eC"}
+              - column: {name: phone_number, value: "123456783"}
+              - column: {name: user_role, value: "DEV"}
+              - column: {name: user_status, value: "VERIFIED"}
+        - insert:
+            tableName: opinion
+            columns:
+              - column: {name: id, valueNumeric: 1}
+              - column: {name: content, value: "Super warsztat, polecam."}
+              - column: {name: created_at, valueDate: "2025-03-27T08:55:21"}
+              - column: {name: user_id, valueNumeric: 1}
+        - insert:
+            tableName: opinion
+            columns:
+              - column: {name: id, valueNumeric: 2}
+              - column: {name: content, value: "Super warsztat, polecam."}
+              - column: {name: created_at, valueDate: "2025-03-26T08:55:21"}
+              - column: {name: user_id, valueNumeric: 2}
+        - insert:
+            tableName: opinion
+            columns:
+              - column: {name: id, valueNumeric: 3}
+              - column: {name: content, value: "Super warsztat, polecam."}
+              - column: {name: created_at, valueDate: "2025-03-25T08:55:21"}
+              - column: {name: user_id, valueNumeric: 3}
+        - insert:
+            tableName: contact_info
+            columns:
+              - column: {name: id, valueNumeric: 1}
+              - column: {name: description, value: "Biuro"}
+              - column: {name: type, value: "Email"}
+              - column: {name: value, value: "biurocarservice@gmail.com"}
+        - insert:
+            tableName: contact_info
+            columns:
+              - column: {name: id, valueNumeric: 2}
+              - column: {name: description, value: "Biuro"}
+              - column: {name: type, value: "Telefon"}
+              - column: {name: value, value: "123123123"}
+        - insert:
+            tableName: contact_info
+            columns:
+              - column: {name: id, valueNumeric: 3}
+              - column: {name: description, value: "Warsztat"}
+              - column: {name: type, value: "Telefon"}
+              - column: {name: value, value: "123331223"}
+        - insert:
+            tableName: homepage
+            columns:
+              - column: {name: id, valueNumeric: 1}
+              - column: {name: value, value: "{\"title\": \"Strona główna 1\", \"info\": \"Witaj\"}"}
+        - insert:
+            tableName: homepage
+            columns:
+              - column: {name: id, valueNumeric: 2}
+              - column: {name: value, value: "{\"title\": \"Strona główna 2\", \"info\": \"Witaj\"}"}
+        - insert:
+            tableName: homepage
+            columns:
+              - column: {name: id, valueNumeric: 3}
+              - column: {name: value, value: "{\"title\": \"Strona główna 3\", \"info\": \"Witaj\"}"}
+        - insert:
+            tableName: opening_hours
+            columns:
+              - column: {name: id, valueNumeric: 1}
+              - column: {name: day_from, value: "Poniedziałek"}
+              - column: {name: day_to, value: "Piątek"}
+              - column: {name: time_from, value: "08:00"}
+              - column: {name: time_to, value: "17:00"}
+        - insert:
+            tableName: opening_hours
+            columns:
+              - column: {name: id, valueNumeric: 2}
+              - column: {name: day_from, value: "Sobota"}
+              - column: {name: day_to, value: "Niedziela"}
+              - column: {name: time_from, value: "08:00"}
+              - column: {name: time_to, value: "14:00"}
+        - insert:
+            tableName: pages
+            columns:
+              - column: {name: id, valueNumeric: 1}
+              - column: {name: is_gallery, valueBoolean: false}
+              - column: {name: is_homepage, valueBoolean: true}
+              - column: {name: is_removable, valueBoolean: false}
+              - column: {name: is_visible, valueBoolean: true}
+              - column: {name: name, value: "Strona główna"}
+              - column: {name: order_index, valueNumeric: 1}
+        - insert:
+            tableName: pages
+            columns:
+              - column: {name: id, valueNumeric: 2}
+              - column: {name: is_gallery, valueBoolean: true}
+              - column: {name: is_homepage, valueBoolean: false}
+              - column: {name: is_removable, valueBoolean: false}
+              - column: {name: is_visible, valueBoolean: true}
+              - column: {name: name, value: "Galeria"}
+              - column: {name: order_index, valueNumeric: 2}
+        - insert:
+            tableName: pages
+            columns:
+              - column: {name: id, valueNumeric: 3}
+              - column: {name: is_gallery, valueBoolean: false}
+              - column: {name: is_homepage, valueBoolean: false}
+              - column: {name: is_removable, valueBoolean: true}
+              - column: {name: is_visible, valueBoolean: true}
+              - column: {name: name, value: "O nas"}
+              - column: {name: order_index, valueNumeric: 2}
+        - insert:
+            tableName: pages
+            columns:
+              - column: {name: id, valueNumeric: 4}
+              - column: {name: is_gallery, valueBoolean: false}
+              - column: {name: is_homepage, valueBoolean: false}
+              - column: {name: is_removable, valueBoolean: true}
+              - column: {name: is_visible, valueBoolean: true}
+              - column: {name: name, value: "Kontakt"}
+              - column: {name: order_index, valueNumeric: 3}
+#        - insert:
+#            tableName: photos
+#            columns:
+#              - column: {name: id, valueNumeric: 1}
+#              - column: {name: created_at, valueDate: "2025-03-27T08:58:14"}
+#              - column: {name: is_home_page_photo, valueBoolean: false}
+#              - column: {name: is_main_photo, valueBoolean: false}
+#              - column: {name: order_index, valueNumeric: 1}
+#              - column: {name: path, value: "src\\main\\resources\\images\\photo1.jpg"}
+#
+#        - insert:
+#            tableName: photos
+#            columns:
+#              - column: {name: id, valueNumeric: 2}
+#              - column: {name: created_at, valueDate: "2025-03-26T08:58:14"}
+#              - column: {name: is_home_page_photo, valueBoolean: false}
+#              - column: {name: is_main_photo, valueBoolean: false}
+#              - column: {name: order_index, valueNumeric: 2}
+#              - column: {name: path, value: "src\\main\\resources\\images\\photo2.png"}
+#        - insert:
+#            tableName: photos
+#            columns:
+#              - column: {name: id, valueNumeric: 3}
+#              - column: {name: created_at, valueDate: "2025-03-25T08:58:14"}
+#              - column: {name: is_home_page_photo, valueBoolean: false}
+#              - column: {name: is_main_photo, valueBoolean: false}
+#              - column: {name: order_index, valueNumeric: 3}
+#              - column: {name: path, value: "src\\main\\resources\\images\\photo3.jpg"}
+#        - insert:
+#            tableName: photos
+#            columns:
+#              - column: {name: id, valueNumeric: 4}
+#              - column: {name: created_at, valueDate: "2025-03-24T08:58:14"}
+#              - column: {name: is_home_page_photo, valueBoolean: true}
+#              - column: {name: is_main_photo, valueBoolean: true}
+#              - column: {name: order_index, valueNumeric: 4}
+#              - column: {name: path, value: "src\\main\\resources\\images\\photo4.jpg"}
+#        - insert:
+#            tableName: posts_photos
+#            columns:
+#              - column: {name: id, valueNumeric: 1}
+#              - column: {name: created_at, valueDate: "2025-03-27T08:58:14"}
+#              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
+#
+#        - insert:
+#            tableName: posts_photos
+#            columns:
+#              - column: {name: id, valueNumeric: 2}
+#              - column: {name: created_at, valueDate: "2025-03-26T08:58:14"}
+#              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
+#        - insert:
+#            tableName: posts_photos
+#            columns:
+#              - column: {name: id, valueNumeric: 3}
+#              - column: {name: created_at, valueDate: "2025-03-25T08:58:14"}
+#              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
+#        - insert:
+#            tableName: posts_photos
+#            columns:
+#              - column: {name: id, valueNumeric: 4}
+#              - column: {name: created_at, valueDate: "2025-03-24T08:58:14"}
+#              - column: {name: path, value: "src\\main\\resources\\images\\posts\\photo1.jpg"}
+#        - insert:
+#            tableName: posts
+#            columns:
+#              - column: { name: id, valueNumeric: 1 }
+#              - column: { name: author, value: "Franciszek" }
+#              - column: { name: content, value: "Zawartość posta 1" }
+#              - column: { name: created_at, valueDate: "2025-03-27T08:55:21" }
+#              - column: { name: title, value: "Nowy olej Vw - dostępny" }
+#              - column: { name: post_photo_id, valueNumeric: 1}
+#        - insert:
+#            tableName: posts
+#            columns:
+#              - column: { name: id, valueNumeric: 2 }
+#              - column: { name: author, value: "Franciszek" }
+#              - column: { name: content, value: "Zawartość posta 2" }
+#              - column: { name: created_at, valueDate: "2025-03-26T08:55:21" }
+#              - column: { name: title, value: "Czy oleje long-life są dobre? " }
+#              - column: { name: post_photo_id, valueNumeric: 2}
+        - insert:
+            tableName: sections
+            columns:
+              - column: {name: id, valueNumeric: 1}
+              - column: {name: content, value: "Nowa usługa już dostępna w naszym warsztacie!
+Z przyjemnością informujemy, że od teraz oferujemy kompleksową diagnostykę komputerową wszystkich marek pojazdów. 
+Dzięki nowoczesnym urządzeniom diagnostycznym jesteśmy w stanie szybko i precyzyjnie wykryć każdą usterkę oraz zapewnić 
+Ci pełną kontrolę nad stanem technicznym Twojego samochodu. Umów się już dziś na wizytę i zadbaj o swoje bezpieczeństwo 
+na drodze! Zapraszamy do naszego warsztatu – Twoje auto w najlepszych rękach."}
+              - column: {name: is_visible, valueBoolean: true}
+              - column: {name: order_index, valueNumeric: 1}
+              - column: {name: show_in_menu, valueBoolean: true}
+              - column: {name: title, value: "Nowości"}
+              - column: {name: pages_id, valueNumeric: 1}
+        - insert:
+            tableName: sections
+            columns:
+              - column: {name: id, valueNumeric: 2}
+              - column: {name: content, value: "Treść sekcji 2"}
+              - column: {name: is_visible, valueBoolean: true}
+              - column: {name: order_index, valueNumeric: 2}
+              - column: {name: show_in_menu, valueBoolean: true}
+              - column: {name: title, value: "Biuro"}
+              - column: {name: pages_id, valueNumeric: 3}
+        - insert:
+            tableName: sections
+            columns:
+              - column: {name: id, valueNumeric: 3}
+              - column: {name: content, value: "Treść sekcji 3"}
+              - column: {name: is_visible, valueBoolean: true}
+              - column: {name: order_index, valueNumeric: 3}
+              - column: {name: show_in_menu, valueBoolean: true}
+              - column: {name: title, value: "Warsztat"}
+              - column: {name: pages_id, valueNumeric: 3}

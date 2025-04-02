@@ -1,0 +1,52 @@
+@use '../../../../colors' as c;
+
+.main {
+    background-color: c.$white;
+    padding: 1em;
+}
+
+.header {
+    margin-bottom: 1em;
+}
+
+.opinionElement {
+    display: flex;
+    flex-direction: row;
+    // background-color: rgba(0,0,0,0.1);
+    // background-color: rgba(237, 241, 247,0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 1em;
+    // margin-bottom: 0.5em;
+
+    &:hover {
+        // background-color: rgba(0,0,0,0.2);
+    background-color: rgba(237, 241, 247,0.5);
+
+    }
+}
+
+.deleteButtonWrapper {
+    display: flex;
+    align-items: center;
+    // background-color: aliceblue;
+ 
+    button {
+        // height: min-content;
+    }
+}
+
+.opinionLeft {
+    flex-grow: 1;
+}
+
+.opinionUser {
+    // font-style: italic;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.opinionInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}

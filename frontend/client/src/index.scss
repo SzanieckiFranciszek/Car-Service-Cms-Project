@@ -1,0 +1,42 @@
+@use './colors' as c;
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto';
+}
+
+body {
+  background-color: c.$background;
+}
+
+input {
+  padding: 0.5em;
+  font-size: 1em;
+}
+
+button {
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+textarea {
+  padding: 0.5em;
+  resize: none;
+  font-size: 1em;
+}
+
+select {
+  padding: 0.5em;
+}
+
+
+html, body {
+  height: 100%;
+}

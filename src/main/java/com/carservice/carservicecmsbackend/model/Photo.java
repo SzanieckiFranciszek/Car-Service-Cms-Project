@@ -22,6 +22,10 @@ public class Photo {
 
     private LocalDateTime createdAt;
 
+    private Boolean isHomePagePhoto;
+
+    private Boolean isMainPhoto;
+
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();

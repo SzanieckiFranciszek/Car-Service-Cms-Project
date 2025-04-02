@@ -1,9 +1,10 @@
 version: '3.8'
 
 services:
-  mysql-db:
+
+  car-service-db:
     image: mysql:8.0
-    container_name: mysql-car-service
+    container_name: car-service-db
     environment:
       MYSQL_ROOT_PASSWORD: K8r7!xLp9@Vd
       MYSQL_DATABASE: carservicedb
@@ -16,8 +17,53 @@ services:
     networks:
       - carservice-network
 
+
+  car-service-backend:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    container_name: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - car-service-db
+    networks:
+      - carservice-network
+    volumes:
+      - images-volume:/app/images
+      - images-volume:/app/images/posts
+
+  car-service-frontend-admin-panel:
+    build: ./frontend/admin-panel
+    container_name: admin-panel
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/admin-panel:/app
+      - /app/node_modules
+    depends_on:
+      - car-service-backend
+    networks:
+      - carservice-network
+    command: npm run dev
+
+  car-service-frontend-client:
+    build: ./frontend/client
+    container_name: client
+    ports:
+      - "5174:5174"
+    volumes:
+      - ./frontend/client:/app
+      - /app/node_modules
+    depends_on:
+      - car-service-backend
+    networks:
+      - carservice-network
+    command: npm run dev
+
 volumes:
   db_data:
+  images-volume:
 
 networks:
   carservice-network:

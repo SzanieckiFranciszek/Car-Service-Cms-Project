@@ -1,0 +1,21 @@
+@use '../../colors' as c;
+
+.main {
+    flex: 1;
+    padding: 2em;
+}
+
+.sectionMain {
+    h2 {
+        margin-bottom: 1em;
+    }
+
+    // margin-bottom: 2em;
+}
+
+.sectionsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    height: 100%;
+}

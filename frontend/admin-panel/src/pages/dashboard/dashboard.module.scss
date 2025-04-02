@@ -1,0 +1,28 @@
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    height: 100vh;
+    // max-height: 100vh;
+    // overflow: hidden;
+    
+}
+.right {
+    display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        overflow: hidden;
+}
+
+.content {
+    // position: absolute;
+    overflow: scroll;
+    padding: 1em;
+    // height: 100px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}

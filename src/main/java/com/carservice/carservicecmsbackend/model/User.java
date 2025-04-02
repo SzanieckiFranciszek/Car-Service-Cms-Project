@@ -6,18 +6,22 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+@Builder
 @Table(name = "users")
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
 
@@ -37,11 +41,11 @@ public class User implements UserDetails {
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_role", columnDefinition = "ENUM('CUSTOMER', 'ADMIN')")
+    @Column(name = "user_role")
     private UserRole userRole;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_status", columnDefinition = "ENUM('VERIFIED', 'UNVERIFIED', 'BLOCKED', 'BANNED')")
+    @Column(name = "user_status")
     private UserStatus userStatus;
 
     @CreationTimestamp
@@ -54,7 +58,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(userRole.name()));
     }
 
     @Override

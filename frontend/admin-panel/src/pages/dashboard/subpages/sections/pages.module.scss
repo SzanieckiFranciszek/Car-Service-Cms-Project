@@ -1,0 +1,160 @@
+@use '../../../../colors' as c;
+
+.main {
+    background-color: c.$white;
+    padding: 1em;
+}
+
+.inputAlert {
+    border-top: 5px solid rgba(255,0,0,0.6);
+    background-color: rgba(255,0,0,0.3);
+    padding: 0.5em;
+    // width: 100%;
+    // margin: 1em;
+    margin-top: 0.5em;
+}
+
+.newPageModalMain {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 20em;
+}
+
+.newSectionModalMain {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.pageButtonsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    // align-items: center;
+
+    div {
+        display: flex;
+        gap: 1em; 
+    }
+}
+
+.sectionsTableWrapper {
+    border-top: solid 1px c.$dark;
+    margin-top: 2em;
+    padding-top: 1em;
+}
+
+.pageModalMain {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.newPageButtonsWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    // flex-grow: 1;
+
+    input {
+        // width: 100%;
+    }
+
+    textarea {
+        width: 40em;
+        height: 20em;
+
+    }
+}
+
+.newPageModalTitle {
+    font-weight: bold;
+}
+
+.pagesTableHeader {
+    background-color: c.$dark;
+    padding: 0.5em;
+    color: #fff;
+
+    &:hover {
+        background-color: c.$dark !important;
+    }
+}
+
+.pagesTable {
+    border-collapse: collapse;
+    border: 1px solid c.$dark;
+    // table-layout: fixed;
+
+    td, th {
+        padding: 0.5em;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2;}
+
+    tr:hover {
+        background-color: #ddd;
+        cursor: pointer;
+    }
+}
+
+.arrowButtons {
+    display: flex;
+    gap: 0.5em;
+    justify-content: center;
+}
+
+.actionsTh {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.pagesTableInfo {
+    display: flex;
+    gap: 2em;
+    margin-bottom: 1em;
+    align-items: center;
+}
+
+
+.modalTest {
+    background-color: red;
+}
+
+.checkboxWrapper {
+    display: flex;
+    gap: 1em;
+}
+
+.sectionsTableContainer {
+    display: flex;
+    justify-content: center;
+
+    table {
+        min-width: 40em;
+
+        td {
+            text-align: center;
+        }
+    }
+}
+
+.pagesTableMain {
+    td {
+        text-align: center;
+        min-width: 10em;
+    }
+}

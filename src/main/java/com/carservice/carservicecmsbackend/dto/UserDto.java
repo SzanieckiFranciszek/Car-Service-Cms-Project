@@ -12,8 +12,7 @@ public record UserDto(@NotBlank @Size(max = 20) String firstName,
                       @NotBlank @Size(max = 20) String lastName,
                       @NotBlank @Pattern(regexp = RegexConstant.EMAIL_PATTERN) String email,
                       @NotBlank @Pattern(regexp = RegexConstant.PASSWORD_PATTERN) String password,
-                      @NotBlank String phoneNumber,
-                      @NotBlank UserRole userRole
+                      @NotBlank String phoneNumber
                       ) {
 
 }

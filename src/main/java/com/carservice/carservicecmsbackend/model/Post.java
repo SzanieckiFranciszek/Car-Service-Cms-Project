@@ -1,13 +1,12 @@
 package com.carservice.carservicecmsbackend.model;
 
-import com.carservice.carservicecmsbackend.dto.PhotoDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Table(name = "post")
+@Table(name = "posts")
 @Entity
 @Getter
 @Setter
@@ -21,9 +20,9 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "photo_id")
-    private Photo photo;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "post_photo_id")
+    private PostPhoto postPhoto;
 
     private String author;
 

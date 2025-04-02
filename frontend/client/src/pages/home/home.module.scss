@@ -1,0 +1,145 @@
+@use '../../colors' as c;
+
+
+.main {
+    flex: 1;
+}
+
+.banner {
+    height: 500px;
+    // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.sections {
+    padding: 2em;
+}
+
+.newOpinionInfo {
+    border-top: 5px solid c.$nav-button-active;
+    background-color: rgba(94, 174, 229, 0.2);
+    padding: 1em;
+}
+
+.newOpinionSection {
+    margin-bottom: 1em;
+}
+
+.header {
+    margin-bottom: 1em;
+}
+
+.opinionsMain {
+    padding: 2em;
+}
+
+.opinionsWrapper {
+    padding: 0 4em;
+}
+
+.opinionElement {
+    display: flex;
+    flex-direction: row;
+    // background-color: rgba(0,0,0,0.1);
+    // background-color: rgba(237, 241, 247,0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 1em;
+    // margin-bottom: 0.5em;
+
+    &:hover {
+        // background-color: rgba(0,0,0,0.2);
+    background-color: rgba(237, 241, 247,0.5);
+
+    }
+}
+
+.deleteButtonWrapper {
+    display: flex;
+    align-items: center;
+    // background-color: aliceblue;
+ 
+}
+
+.opinionLeft {
+    flex-grow: 1;
+}
+
+.opinionUser {
+    // font-style: italic;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.opinionInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.sectionsWrapper {
+    padding: 2em;
+}
+
+.postModalHeader {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.postModalButtonWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1em;
+}
+
+.postModalContent {
+    margin-top: 1em;
+}
+
+.postModalInputWrapper {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    textarea {
+        // resize: none;
+        // padding: 1em;
+        height: 20em;
+
+        &:disabled {
+            opacity: 1;
+            color: #000;
+        }
+    }
+
+    input {
+
+
+        &:disabled {
+            opacity: 1;
+            color: #000;
+        }
+    }
+}
+
+.postModalMain {
+    width: 50vw;
+}
+
+.inputError {
+    border: 2px solid rgba(255,0,0,0.6);
+}
+
+.inputAlert {
+    border-top: 5px solid rgba(255,0,0,0.6);
+    background-color: rgba(255,0,0,0.3);
+    padding: 0.5em;
+}
+
+.newOpinionButtonWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    align-items: center;
+}
