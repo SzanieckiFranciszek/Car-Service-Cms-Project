@@ -59,7 +59,8 @@ public class WebSecurityConfig {
 
                         // CUSTOMER
                         .requestMatchers(HttpMethod.POST,
-                                "/api/opinions"
+                                "/api/opinions",
+                                "/api/opinions/{id}"
                         ).hasAuthority(UserRole.USER.name())
 
                         // ADMIN
